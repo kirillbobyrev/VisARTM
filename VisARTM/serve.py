@@ -1,13 +1,17 @@
-from flask import Flask, render_template
+# -*- encoding: utf-8 ---------------------------------------------------------
 
+from flask import Flask, render_template
+from flask.ext.sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+app.config.from_pyfile('config.cfg')
+db = SQLAlchemy(app)
 
+from views import *
 
-@app.route('/')
-def hello_world():
-    return render_template('index.html')
+# -----------------------------------------------------------------------------
+# int main
+# -----------------------------------------------------------------------------
 
 if __name__ == '__main__':
-    app.debug = True
-    app.run(host='0.0.0.0')
+    app.run()
