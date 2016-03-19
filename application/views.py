@@ -1,4 +1,7 @@
+# -*- encoding: utf-8 ---------------------------------------------------------
+
 from serve import *
+
 
 @app.route('/')
 @app.route('/index.html')
