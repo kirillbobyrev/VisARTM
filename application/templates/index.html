@@ -1,3 +1,26 @@
 {% extends "layout.html" %}
 
-{% block content %}{% endblock %}
+{% block content %}
+
+<div class="jumbotron">
+  <h2>Visualising your datasets!</h2>
+  <p>Here is a list of loaded datasets with their topic models:</p>
+</div>
+
+  {% for dataset in datasets %}
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Dataset "{{ dataset.name }}"</h3>
+    </div>
+    <div class="panel-body">
+      ID: {{ dataset.id }}
+      {% for topicmodel in topicmodels %}
+        {% if topicmodel.dataset_id == dataset.id %}
+          TOPICMODEL {{ topicmodel.id }}
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+  {% endfor %}
+
+{% endblock %}
