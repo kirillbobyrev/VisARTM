@@ -45,10 +45,11 @@ def add_dataset(name, directory):
 @click.option('--name', type=str, required=True)
 @click.option('--directory', type=click.Path(exists=True), required=True)
 def add_topicmodel(dataset_id, name, directory):
-    topicmodel = TopicModel(name, dataset_id)
+    id = len(Dataset.query.get(dataset_id).topicmodels) + 1
+    topicmodel = TopicModel(id, dataset_id, name)
     db.session.add(topicmodel)
     db.session.commit()
-    print('TopicModel #{} for Dataset #{} added'.format(topicmodel.id, topicmodel.dataset_id))
+    print('TopicModel #{} for Dataset #{} added'.format(id, dataset_id))
 
 
 @cli.command()
@@ -62,8 +63,9 @@ def generate_sample_dataset(name, directory):
                  Document('other paper')]
 
     with open(os.path.join(directory, 'documents.csv'), 'w') as csvfile:
-        for document in documents:
-            csvfile.writerow()
+        for idx, document in enumerate(documents):
+            # csvfile.writerow()
+            print(idx, document)
 
 
     # Handle terms.
@@ -73,6 +75,10 @@ def generate_sample_dataset(name, directory):
              Term('is'),
              Term('superior')]
 
+    with open(os.path.join(directory, 'documents.csv'), 'w') as csvfile:
+        for idx, document in enumerate(documents):
+            # csvfile.writerow()
+            print(idx, document)
 
 
 if __name__ == '__main__':

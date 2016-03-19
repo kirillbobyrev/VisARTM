@@ -14,10 +14,9 @@
     </div>
     <div class="panel-body">
       ID: {{ dataset.id }}
-      {% for topicmodel in topicmodels %}
-        {% if topicmodel.dataset_id == dataset.id %}
+      {% for topicmodel in dataset.topicmodels %}
+          <br>
           TOPICMODEL {{ topicmodel.id }}
-        {% endif %}
       {% endfor %}
     </div>
   </div>

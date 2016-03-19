@@ -13,35 +13,39 @@ from serve import db
 
 
 class Dataset(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(120))
 
-    topicmodels = db.relationship('TopicModel', backref='dataset',
-                                  lazy='dynamic') 
+    documents = db.relationship('Document')
+    terms = db.relationship('Term')
+    topicmodels = db.relationship('TopicModel')
+
     def __init__(self, name):
-        self.name = name
+        self.name = name 
 
 
 class Document(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(120))
+    dataset = db.Column(db.Integer, db.ForeignKey('dataset.id'), primary_key=True)
+    title = db.Column(db.Text)
 
-    dataset_id = db.Column(db.Integer, db.ForeignKey('dataset.id'))
 
-
-    def __init__(self, title):
+    def __init__(self, id, dataset, title):
+        self.id = id
+        self.dataset = dataset
         self.title = title
-
+        
 
 class Term(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    text = db.Column(db.String(120))
+    dataset = db.Column(db.Integer, db.ForeignKey('dataset.id'), primary_key=True)
+    text = db.Column(db.Text)
 
-    dataset_id = db.Column(db.Integer, db.ForeignKey('dataset.id'))
-
-
-    def __init__(self, text):
+    def __init__(self, id, dataset, title):
+        self.id = id
+        self.dataset = dataset
         self.text = text
+
 
 dataset_models = (Document, Term)
 
@@ -52,14 +56,14 @@ dataset_models = (Document, Term)
 
 
 class TopicModel(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=False)
+    dataset = db.Column(db.Integer, db.ForeignKey('dataset.id'), primary_key=True)
     name = db.Column(db.String(120))
 
-    dataset_id = db.Column(db.Integer, db.ForeignKey('dataset.id'))
-
-    def __init__(self, name, dataset_id):
+    def __init__(self, id, dataset, name):
+        self.id = id
+        self.dataset = dataset
         self.name = name
-        self.dataset_id = dataset_id
 
-
+    
 topicmodel_models = ()

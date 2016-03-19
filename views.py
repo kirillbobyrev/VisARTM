@@ -9,7 +9,4 @@ from models import *
 @app.route('/index.html')
 def index():
     datasets = Dataset.query.all()
-    topicmodels = TopicModel.query.all()
-    return render_template('index.html',
-                           datasets=datasets,
-                           topicmodels=topicmodels)
+    return render_template('index.html', datasets=datasets)
