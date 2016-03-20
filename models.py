@@ -47,10 +47,10 @@ class DocumentTerm(db.Model):
         'term.id'), primary_key=True)
 
     count = db.Column(db.Integer)
+
+
+dataset_models = [Document, Term, DocumentTerm]
     
-
-dataset_models = [Term, Document, DocumentTerm]
-
 
 # -----------------------------------------------------------------------------
 # TopicModel-related models
@@ -70,7 +70,7 @@ class TopicModel(db.Model):
 class Topic(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=False)
     title = db.Column(db.String(120))
-    probabilities = db.Column(db.Float)
+    probability = db.Column(db.Float)
     is_background = db.Column(db.Boolean)
 
     topicmodel = db.Column(db.Integer, db.ForeignKey(
@@ -80,10 +80,10 @@ class Topic(db.Model):
 class TopicTerm(db.Model):
     topicmodel = db.Column(db.Integer, db.ForeignKey(
         'topic_model.id'), primary_key=True)
-    term = db.Column(db.Integer, db.ForeignKey(
-        'term.id'), primary_key=True)
     topic = db.Column(db.Integer, db.ForeignKey(
         'topic.id'), primary_key=True)
+    term = db.Column(db.Integer, db.ForeignKey(
+        'term.id'), primary_key=True)
     prob_wt = db.Column(db.Float)
     prob_tw = db.Column(db.Float)
 
@@ -119,5 +119,15 @@ class TermSimilarity(db.Model):
     similarity = db.Column(db.Float)
 
 
-topicmodel_models = [Topic, TopicTerm, DocumentTopic, TopicSimilarity,
-    TermSimilarity]
+class DocumentSimilarity(db.Model):
+    topicmodel = db.Column(db.Integer, db.ForeignKey(
+        'topic_model.id'), primary_key=True)
+    document_l = db.Column(db.Integer, db.ForeignKey(
+        'document.id'), primary_key=True)
+    document_r = db.Column(db.Integer, db.ForeignKey(
+        'document.id'), primary_key=True)
+    similarity = db.Column(db.Float)
+
+
+topicmodel_models = [Topic, TopicTerm, DocumentTopic, TopicSimilarity, 
+                     TermSimilarity]
