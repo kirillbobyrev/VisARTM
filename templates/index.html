@@ -7,19 +7,18 @@
   <p>Here is a list of loaded datasets with their topic models:</p>
 </div>
 
-  {% for dataset in datasets %}
+{% for dataset in datasets %}
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title">Dataset "{{ dataset.name }}"</h3>
-    </div>
-    <div class="panel-body">
-      ID: {{ dataset.id }}
-      {% for topicmodel in dataset.topicmodels %}
-          <br>
-          TOPICMODEL {{ topicmodel.id }}
-      {% endfor %}
-    </div>
+    <h3 class="panel-title">Dataset #{{ dataset.id }} "{{ dataset.name }}"</h3>
   </div>
-  {% endfor %}
+  <div class="panel-body">
+    <ul>
+      {% for topicmodel in dataset.topicmodels %}
+      <li>Topicmodel #{{ topicmodel.id }} "{{ topicmodel.name }}" </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endfor %}
 
 {% endblock %}

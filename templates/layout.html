@@ -7,15 +7,15 @@
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
   <meta name="description" content="">
   <meta name="author" content="">
-  <link rel="shortcut icon" type="image/png" href="static/img/BigARTM-favicon.png">
+  <link rel="shortcut icon" type="image/png" href={{ url_for("static", filename="img/BigARTM-favicon.png") }}>
 
   <title>{% block title %} VisARTM {% endblock %}</title>
 
   <!-- Custom styles for this template -->
-  <link href="static/css/style.css" rel="stylesheet">
+  <link href={{ url_for("static", filename="css/style.css") }} rel="stylesheet">
 
   <!-- Bootstrap core CSS -->
-  <link href="static/css/bootstrap.min.css" rel="stylesheet">
+  <link href={{ url_for("static", filename="css/bootstrap.min.css") }} rel="stylesheet">
 </head>
 
 <body>
@@ -34,7 +34,6 @@
   ================================================== -->
   <!-- Placed at the end of the document so the pages load faster -->
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-  <script src="static/js/bootstrap.min.js"></script>
+  <script src={{ url_for("static", filename="js/bootstrap.min.js") }}></script>
 </body>
 </html>
-
