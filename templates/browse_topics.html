@@ -1,0 +1,8 @@
+{% extends "topic_model_layout.html" %}
+{% from "macro.html" import list_topics %}
+
+{% block content %}
+
+{{ list_topics("Full list of Topics sorted by probability", dataset, topicmodel, topics) }}
+
+{% endblock %}

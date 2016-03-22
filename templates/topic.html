@@ -1,0 +1,61 @@
+{% extends "topic_model_layout.html" %}
+{% from "macro.html" import table_model %}
+
+{% block content %}
+
+<div class="jumbotron">
+    <h2>Topic "{{ topic.title }}" Overview<h2>
+    <p>
+        Corresponding Dataset: Dataset #{{ dataset.id }}, "{{ dataset.name }}" 
+        <br>
+        Documents count: {{ dataset.documents | length }}
+        <br>
+        Terms count: {{ dataset.terms | length }}
+        <br>
+        Topics count: {{ topicmodel.topics | length }}
+    </p>
+</div>
+
+<div class="container">
+    <h3>Centered Tabs</h3>
+    <ul class="nav nav-tabs nav-justified">
+        <li><a data-toggle="tab" href="#overview">Overview</a></li>
+        <li><a data-toggle="tab" href="#terms">Terms</a></li>
+        <li><a data-toggle="tab" href="#documents">Documents</a></li>
+        <li><a data-toggle="tab" href="#similar">Similar Topics</a></li>
+    </ul>
+
+
+    <div class="tab-content">
+        <div id="overview" class="tab-pane fade in active">
+            <p>
+                BLANK 
+                <!-- TODO: add some fancy overview right here -->
+            </p>
+        </div>
+        <div id="terms" class="tab-pane fade">
+            <p>
+                <div class="table-responsive col-md-6">
+                    {{ table_model(terms_wt_table) }}
+                </div>
+                <div class="table-responsive col-md-6">
+                    {{ table_model(terms_tw_table) }}
+                </div>
+            </p>
+        </div>
+        <div id="documents" class="tab-pane fade">
+            <p>
+                {{ table_model(terms_wt_table) }}
+                {{ table_model(terms_tw_table) }}
+            </p>
+        </div>
+        <div id="similar" class="tab-pane fade">
+            <p>
+                {{ table_model(terms_wt_table) }}
+                {{ table_model(terms_tw_table) }}
+            </p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

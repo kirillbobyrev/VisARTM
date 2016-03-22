@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="shortcut icon" type="image/png" href={{ url_for("static", filename="img/BigARTM-favicon.png") }}>
+
+  <title>{% block title %} VisARTM {% endblock %}</title>
+
+  <!-- Custom styles for this template -->
+  <link href={{ url_for("static", filename="css/style.css") }} rel="stylesheet">
+
+  <!-- Bootstrap core CSS -->
+  <link href={{ url_for("static", filename="css/bootstrap.min.css") }} rel="stylesheet">
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">VisARTM</a>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        {% block navbar_links %}{% endblock %}
+      </ul>
+    </div>
+  </div>
+  </nav>
+
+  <div class="container content">{% block content %}{% endblock %}</div>
+  <div id="footer">{% block footer %}{% endblock %}</div>
+
+  <!-- Bootstrap core JavaScript
+  ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+  <script src={{ url_for("static", filename="js/bootstrap.min.js") }}></script>
+</body>
+</html>

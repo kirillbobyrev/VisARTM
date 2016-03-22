@@ -68,13 +68,13 @@ class TopicModel(db.Model):
 
 
 class Topic(db.Model):
+    topicmodel = db.Column(db.Integer, db.ForeignKey(
+        'topic_model.id'), primary_key=True)
     id = db.Column(db.Integer, primary_key=True, autoincrement=False)
     title = db.Column(db.String(120))
     probability = db.Column(db.Float)
     is_background = db.Column(db.Boolean)
 
-    topicmodel = db.Column(db.Integer, db.ForeignKey(
-        'topic_model.id'), primary_key=True)
 
 
 class TopicTerm(db.Model):

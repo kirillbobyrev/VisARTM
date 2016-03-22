@@ -3,22 +3,31 @@
 {% block content %}
 
 <div class="jumbotron">
-  <h2>Visualising your datasets!</h2>
-  <p>Here is a list of loaded datasets with their topic models:</p>
+    <h2>Visualising your datasets!</h2>
+    <p>Here is a list of loaded datasets with their topic models:</p>
 </div>
 
 {% for dataset in datasets %}
-  <div class="panel panel-default">
-    <div class="panel-heading">
-    <h3 class="panel-title">Dataset #{{ dataset.id }} "{{ dataset.name }}"</h3>
-  </div>
-  <div class="panel-body">
-    <ul>
-      {% for topicmodel in dataset.topicmodels %}
-      <li>Topicmodel #{{ topicmodel.id }} "{{ topicmodel.name }}" </li>
-      {% endfor %}
-    </ul>
-  </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+        <h3 class="panel-title">Dataset #{{ dataset.id }}, "{{ dataset.name }}"</h3>
+        <br>
+        Documents: {{ dataset.documents | length }}
+        <br>
+        Terms: {{ dataset.terms | length }}
+    </div>
+    <div class="panel-body">
+        <div class="list-group">
+            {% for topicmodel in dataset.topicmodels %}
+                <a href="{{ url_for('topic_model', dataset_id=dataset.id, topicmodel_id=topicmodel.id) }}" class="list-group-item">
+                    <h4 class="list-group-item-heading">Topicmodel #{{ topicmodel.id }}, "{{ topicmodel.name }}"</h4>
+                    <div class="list-group-item-text">
+                        Topics: {{ topicmodel.topics | length }}
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
 {% endfor %}
 
 {% endblock %}

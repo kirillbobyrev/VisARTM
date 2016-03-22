@@ -1,1 +1,24 @@
-{% extends "layout.html" %}
+{% extends "topic_model_layout.html" %}
+{% from "macro.html" import list_topics %}
+
+{% block content %}
+
+<div class="jumbotron">
+  <h2>Topic Model "{{ topicmodel.name }}" Overview<h2>
+  <p>
+    Corresponding Dataset: Dataset #{{ dataset.id }}, "{{ dataset.name }}" 
+    <br>
+    Documents count: {{ dataset.documents | length }}
+    <br>
+    Terms count: {{ dataset.terms | length }}
+    <br>
+    Topics count: {{ topicmodel.topics | length }}
+  </p>
+  <p><a class="btn btn-primary btn-lg" href="{{ url_for('browse_topics', dataset_id=dataset.id, topicmodel_id=topicmodel.id) }}" role="button">
+    Browse Topics
+  </a></p>
+</div>
+
+{{ list_topics("10 Topics with highest probability", dataset, topicmodel, top_ten_topics) }}
+
+{% endblock %}
