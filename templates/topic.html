@@ -43,16 +43,19 @@
                 </div>
             </p>
         </div>
-        <div id="documents" class="tab-pane fade">
+        <div id="documents" class="tab-pane">
             <p>
-                {{ table_model(terms_wt_table) }}
-                {{ table_model(terms_tw_table) }}
+                <div class="table-responsive col-md-6">
+                    {{ table_model(documents_dt_table) }}
+                </div>
+                <div class="table-responsive col-md-6">
+                    {{ table_model(documents_td_table) }}
+                </div>
             </p>
         </div>
         <div id="similar" class="tab-pane fade">
             <p>
-                {{ table_model(terms_wt_table) }}
-                {{ table_model(terms_tw_table) }}
+                {{ table_model(topic_similarities_table) }}
             </p>
         </div>
     </div>

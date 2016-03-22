@@ -1,0 +1,23 @@
+{% extends "topic_model_layout.html" %}
+{% from "macro.html" import table_model %}
+
+{% block content %}
+
+<div class="jumbotron">
+    <h2>{% block jumbotron_header %}{% endblock %}<h2>
+    <p>{% block jubmotron_content %}{% endblock %}</p>
+</div>
+
+<div class="container">
+    <h3>Centered Tabs</h3>
+    <ul class="nav nav-tabs nav-justified">
+        {% block container_navtabs %}{% endblock %}
+    </ul>
+
+
+    <div class="tab-content">
+        {% block navtabs_content %}{% endblock %}
+    </div>
+</div>
+
+{% endblock %}
