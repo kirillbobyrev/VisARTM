@@ -58,16 +58,17 @@ dataset_models = [Document, Term, DocumentTerm]
 
 
 class TopicModel(db.Model):
-    id = db.Column(db.Integer, primary_key=True, autoincrement=False)
-    name = db.Column(db.String(120))
-
     dataset = db.Column(db.Integer, db.ForeignKey(
         'dataset.id'), primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=False)
+    name = db.Column(db.String(120))
 
     topics = db.relationship('Topic')
 
 
 class Topic(db.Model):
+    dataset = db.Column(db.Integer, db.ForeignKey('dataset.id'),
+        primary_key=True)
     topicmodel = db.Column(db.Integer, db.ForeignKey(
         'topic_model.id'), primary_key=True)
     id = db.Column(db.Integer, primary_key=True, autoincrement=False)
@@ -78,6 +79,8 @@ class Topic(db.Model):
 
 
 class TopicTerm(db.Model):
+    dataset = db.Column(db.Integer, db.ForeignKey('dataset.id'),
+        primary_key=True)
     topicmodel = db.Column(db.Integer, db.ForeignKey(
         'topic_model.id'), primary_key=True)
     topic = db.Column(db.Integer, db.ForeignKey(
@@ -89,6 +92,8 @@ class TopicTerm(db.Model):
 
 
 class DocumentTopic(db.Model):
+    dataset = db.Column(db.Integer, db.ForeignKey('dataset.id'),
+        primary_key=True)
     topicmodel = db.Column(db.Integer, db.ForeignKey(
         'topic_model.id'), primary_key=True)
     document = db.Column(db.Integer, db.ForeignKey(
@@ -100,6 +105,8 @@ class DocumentTopic(db.Model):
 
 
 class TopicSimilarity(db.Model):
+    dataset = db.Column(db.Integer, db.ForeignKey('dataset.id'),
+        primary_key=True)
     topicmodel = db.Column(db.Integer, db.ForeignKey(
         'topic_model.id'), primary_key=True)
     topic_l = db.Column(db.Integer, db.ForeignKey(
@@ -110,6 +117,8 @@ class TopicSimilarity(db.Model):
 
 
 class TermSimilarity(db.Model):
+    dataset = db.Column(db.Integer, db.ForeignKey('dataset.id'),
+        primary_key=True)
     topicmodel = db.Column(db.Integer, db.ForeignKey(
         'topic_model.id'), primary_key=True)
     term_l = db.Column(db.Integer, db.ForeignKey(
@@ -120,6 +129,8 @@ class TermSimilarity(db.Model):
 
 
 class DocumentSimilarity(db.Model):
+    dataset = db.Column(db.Integer, db.ForeignKey('dataset.id'),
+        primary_key=True)
     topicmodel = db.Column(db.Integer, db.ForeignKey(
         'topic_model.id'), primary_key=True)
     document_l = db.Column(db.Integer, db.ForeignKey(

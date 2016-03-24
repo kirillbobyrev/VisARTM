@@ -127,6 +127,8 @@ def read_from_csv(model, directory, initial_dict):
             arguments = dict(zip(argument_names, row))
             arguments.update(initial_dict)
             item = model(**arguments)
+            if 'topicmodel' in arguments:
+                print(model.__tablename__, arguments['topicmodel'])
             db.session.add(item)
 
     db.session.commit()
@@ -149,9 +151,12 @@ def add_topicmodel(name, directory, dataset_id):
     topicmodel = TopicModel(id=id, name=name, dataset=dataset.id)
     db.session.add(topicmodel)
     db.session.commit()
+    print(id)
+    print(topicmodel.id)
     print('TopicModel #{} for Dataset #{} added'.format(topicmodel.id,
                                                         dataset.id))
 
     for model in topicmodel_models:
-        read_from_csv(model, directory, {'topicmodel' : topicmodel.id})
+        read_from_csv(model, directory,
+            {'dataset' : dataset_id, 'topicmodel' : topicmodel.id})
     print('Data for TopicModel #{} loaded successfully'.format(topicmodel.id))

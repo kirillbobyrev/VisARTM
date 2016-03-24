@@ -29,17 +29,19 @@ def topic_model(dataset_id, topicmodel_id):
     return render_template('topic_model.html',
         dataset=Dataset.query.get(dataset_id),
         topicmodel=TopicModel.query.get((dataset_id, topicmodel_id)),
-        top_ten_topics=Topic.query.filter_by(
+        top_ten_topics=Topic.query.filter_by(dataset=dataset_id,
             topicmodel=topicmodel_id).order_by('probability')[-10:])
 
 
 @app.route('/dataset/<int:dataset_id>/topic_model/<int:topicmodel_id>'
            '/browse_topics.html')
 def browse_topics(dataset_id, topicmodel_id):
+    print(len(TopicModel.query.get((dataset_id, topicmodel_id)).topics))
     return render_template('browse_topics.html',
         dataset=Dataset.query.get(dataset_id),
         topicmodel=TopicModel.query.get((dataset_id, topicmodel_id)),
         topics=Topic.query.filter_by(
+            dataset=dataset_id,
             topicmodel=topicmodel_id).
             order_by('probability')[::-1])
 
@@ -47,8 +49,8 @@ def browse_topics(dataset_id, topicmodel_id):
 @app.route('/dataset/<int:dataset_id>/topic_model/<int:topicmodel_id>'
            '/topic/<int:topic_id>')
 def topic(dataset_id, topicmodel_id, topic_id):
-    topic_terms = TopicTerm.query.filter_by(topicmodel=topicmodel_id,
-        topic=topic_id)
+    topic_terms = TopicTerm.query.filter_by(dataset=dataset_id,
+        topicmodel=topicmodel_id, topic=topic_id)
     terms = Term.query.filter(id in [tt.term for tt in topic_terms.all()])
 
     terms_wt_table = Table(
@@ -67,8 +69,8 @@ def topic(dataset_id, topicmodel_id, topic_id):
             for tt in topic_terms.order_by('prob_tw')[::-1]]
     )
 
-    document_topics = DocumentTopic.query.filter_by(topicmodel=topicmodel_id,
-        topic=topic_id)
+    document_topics = DocumentTopic.query.filter_by(dataset=dataset_id,
+        topicmodel=topicmodel_id, topic=topic_id)
     documents = Document.query.filter(
         id in [dt.document for dt in document_topics.all()])
 
@@ -89,21 +91,21 @@ def topic(dataset_id, topicmodel_id, topic_id):
             for dt in document_topics.order_by('prob_dt')[::-1]]
     )
 
-    topic_similarities = TopicSimilarity.query.filter_by(
+    topic_similarities = TopicSimilarity.query.filter_by(dataset=dataset_id,
         topicmodel=topicmodel_id, topic_l=topic_id)
     topic_similarities_table = Table(
         heading='Topic Similarities',
         column_names=['Similarity', 'Topic'],
         rows=[[ts.similarity, 
             url_for(Topic, dataset_id, topicmodel_id, ts.topic_r),
-            Topic.query.get((topicmodel_id, ts.topic_r)).title]
+            Topic.query.get((dataset_id, topicmodel_id, ts.topic_r)).title]
             for ts in topic_similarities.order_by('similarity')[::-1]]
     )
 
     return render_template('topic.html',
         dataset=Dataset.query.get(dataset_id),
         topicmodel=TopicModel.query.get((dataset_id, topicmodel_id)),
-        topic=Topic.query.get((topicmodel_id, topic_id)),
+        topic=Topic.query.get((dataset_id, topicmodel_id, topic_id)),
         terms_wt_table=terms_wt_table,
         terms_tw_table=terms_tw_table,
         documents_dt_table=documents_dt_table,

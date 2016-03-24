@@ -1,31 +1,28 @@
-{% extends "topic_model_layout.html" %}
-{% from "macro.html" import table_model %}
+{% extends "model_layout.html" %}
 
-{% block content %}
+{% block jumbotron_header %}
+    Topic "{{ topic.title }}" Overview
+{% endblock %}
 
-<div class="jumbotron">
-    <h2>Topic "{{ topic.title }}" Overview<h2>
-    <p>
-        Corresponding Dataset: Dataset #{{ dataset.id }}, "{{ dataset.name }}" 
-        <br>
-        Documents count: {{ dataset.documents | length }}
-        <br>
-        Terms count: {{ dataset.terms | length }}
-        <br>
-        Topics count: {{ topicmodel.topics | length }}
-    </p>
-</div>
+{% block jubmotron_content %}
+    Corresponding Dataset: Dataset #{{ dataset.id }}, "{{ dataset.name }}" 
+    <br>
+    Documents count: {{ dataset.documents | length }}
+    <br>
+    Terms count: {{ dataset.terms | length }}
+    <br>
+    Topics count: {{ topicmodel.topics | length }}
+{% endblock %}
 
-<div class="container">
-    <h3>Centered Tabs</h3>
-    <ul class="nav nav-tabs nav-justified">
-        <li><a data-toggle="tab" href="#overview">Overview</a></li>
-        <li><a data-toggle="tab" href="#terms">Terms</a></li>
-        <li><a data-toggle="tab" href="#documents">Documents</a></li>
-        <li><a data-toggle="tab" href="#similar">Similar Topics</a></li>
-    </ul>
+{% block container_navtabs %}
+    <li><a data-toggle="tab" href="#overview">Overview</a></li>
+    <li><a data-toggle="tab" href="#terms">Terms</a></li>
+    <li><a data-toggle="tab" href="#documents">Documents</a></li>
+    <li><a data-toggle="tab" href="#similar">Similar Topics</a></li>
+{% endblock %}
 
 
+{% block navtabs_content %}
     <div class="tab-content">
         <div id="overview" class="tab-pane fade in active">
             <p>
@@ -58,7 +55,4 @@
                 {{ table_model(topic_similarities_table) }}
             </p>
         </div>
-    </div>
-</div>
-
 {% endblock %}
