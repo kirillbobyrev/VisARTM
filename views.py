@@ -29,7 +29,7 @@ def topic_model(dataset_id, topicmodel_id):
     return render_template('topic_model.html',
         dataset=Dataset.query.get(dataset_id),
         topicmodel=TopicModel.query.get((dataset_id, topicmodel_id)),
-        top_ten_topics=Topic.query.filter_by(dataset=dataset_id,
+        top_ten_topics=Topic.query.filter_by(
             topicmodel=topicmodel_id).order_by('probability')[-10:])
 
 
@@ -41,7 +41,6 @@ def browse_topics(dataset_id, topicmodel_id):
         dataset=Dataset.query.get(dataset_id),
         topicmodel=TopicModel.query.get((dataset_id, topicmodel_id)),
         topics=Topic.query.filter_by(
-            dataset=dataset_id,
             topicmodel=topicmodel_id).
             order_by('probability')[::-1])
 
@@ -49,7 +48,7 @@ def browse_topics(dataset_id, topicmodel_id):
 @app.route('/dataset/<int:dataset_id>/topic_model/<int:topicmodel_id>'
            '/topic/<int:topic_id>')
 def topic(dataset_id, topicmodel_id, topic_id):
-    topic_terms = TopicTerm.query.filter_by(dataset=dataset_id,
+    topic_terms = TopicTerm.query.filter_by(
         topicmodel=topicmodel_id, topic=topic_id)
     terms = Term.query.filter(id in [tt.term for tt in topic_terms.all()])
 
@@ -69,7 +68,7 @@ def topic(dataset_id, topicmodel_id, topic_id):
             for tt in topic_terms.order_by('prob_tw')[::-1]]
     )
 
-    document_topics = DocumentTopic.query.filter_by(dataset=dataset_id,
+    document_topics = DocumentTopic.query.filter_by(
         topicmodel=topicmodel_id, topic=topic_id)
     documents = Document.query.filter(
         id in [dt.document for dt in document_topics.all()])

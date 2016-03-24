@@ -18,7 +18,7 @@ class Dataset(db.Model):
 
     documents = db.relationship('Document')
     terms = db.relationship('Term')
-    topicmodels = db.relationship('TopicModel')
+    topic_models = db.relationship('TopicModel')
 
 
 class Document(db.Model):
@@ -63,24 +63,31 @@ class TopicModel(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=False)
     name = db.Column(db.String(120))
 
-    topics = db.relationship('Topic')
+    topics = db.relationship('Topic',
+        primaryjoin='and_(TopicModel.id==Topic.topicmodel,'
+                    'TopicModel.dataset==Topic.dataset)')
 
 
 class Topic(db.Model):
-    dataset = db.Column(db.Integer, db.ForeignKey('dataset.id'),
-        primary_key=True)
+    dataset = db.Column(db.Integer, db.ForeignKey(
+        'dataset.id'), primary_key=True)
     topicmodel = db.Column(db.Integer, db.ForeignKey(
         'topic_model.id'), primary_key=True)
+
     id = db.Column(db.Integer, primary_key=True, autoincrement=False)
     title = db.Column(db.String(120))
     probability = db.Column(db.Float)
     is_background = db.Column(db.Boolean)
 
+    topicterms = db.relationship('TopicTerm',
+        primaryjoin='and_(Topic.id==TopicTerm.topic,'
+                    'Topic.dataset==TopicTerm.dataset,'
+                    'Topic.topicmodel==TopicTerm.topicmodel)')
 
 
 class TopicTerm(db.Model):
-    dataset = db.Column(db.Integer, db.ForeignKey('dataset.id'),
-        primary_key=True)
+    dataset = db.Column(db.Integer, db.ForeignKey(
+        'dataset.id'), primary_key=True)
     topicmodel = db.Column(db.Integer, db.ForeignKey(
         'topic_model.id'), primary_key=True)
     topic = db.Column(db.Integer, db.ForeignKey(
@@ -92,8 +99,8 @@ class TopicTerm(db.Model):
 
 
 class DocumentTopic(db.Model):
-    dataset = db.Column(db.Integer, db.ForeignKey('dataset.id'),
-        primary_key=True)
+    dataset = db.Column(db.Integer, db.ForeignKey(
+        'dataset.id'), primary_key=True)
     topicmodel = db.Column(db.Integer, db.ForeignKey(
         'topic_model.id'), primary_key=True)
     document = db.Column(db.Integer, db.ForeignKey(
@@ -105,8 +112,8 @@ class DocumentTopic(db.Model):
 
 
 class TopicSimilarity(db.Model):
-    dataset = db.Column(db.Integer, db.ForeignKey('dataset.id'),
-        primary_key=True)
+    dataset = db.Column(db.Integer, db.ForeignKey(
+        'dataset.id'), primary_key=True)
     topicmodel = db.Column(db.Integer, db.ForeignKey(
         'topic_model.id'), primary_key=True)
     topic_l = db.Column(db.Integer, db.ForeignKey(
@@ -117,8 +124,8 @@ class TopicSimilarity(db.Model):
 
 
 class TermSimilarity(db.Model):
-    dataset = db.Column(db.Integer, db.ForeignKey('dataset.id'),
-        primary_key=True)
+    dataset = db.Column(db.Integer, db.ForeignKey(
+        'dataset.id'), primary_key=True)
     topicmodel = db.Column(db.Integer, db.ForeignKey(
         'topic_model.id'), primary_key=True)
     term_l = db.Column(db.Integer, db.ForeignKey(
@@ -129,8 +136,8 @@ class TermSimilarity(db.Model):
 
 
 class DocumentSimilarity(db.Model):
-    dataset = db.Column(db.Integer, db.ForeignKey('dataset.id'),
-        primary_key=True)
+    dataset = db.Column(db.Integer, db.ForeignKey(
+        'dataset.id'), primary_key=True)
     topicmodel = db.Column(db.Integer, db.ForeignKey(
         'topic_model.id'), primary_key=True)
     document_l = db.Column(db.Integer, db.ForeignKey(
