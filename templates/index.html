@@ -18,11 +18,11 @@
     </div>
     <div class="panel-body">
         <div class="list-group">
-            {% for topicmodel in dataset.topicmodels %}
-                <a href="{{ url_for('topic_model', dataset_id=dataset.id, topicmodel_id=topicmodel.id) }}" class="list-group-item">
-                    <h4 class="list-group-item-heading">Topicmodel #{{ topicmodel.id }}, "{{ topicmodel.name }}"</h4>
+            {% for topic_model in dataset.topic_models %}
+                <a href="{{ url_for('topic_model', dataset_id=dataset.id, topic_model_id=topic_model.id) }}" class="list-group-item">
+                    <h4 class="list-group-item-heading">Topicmodel #{{ topic_model.id }}, "{{ topic_model.name }}"</h4>
                     <div class="list-group-item-text">
-                        Topics: {{ topicmodel.topics | length }}
+                        Topics: {{ topic_model.topics | length }}
                     </div>
                 </a>
             {% endfor %}

@@ -1,4 +1,4 @@
-{% macro list_topics(heading, dataset, topicmodel, topics) -%}
+{% macro list_topics(heading, dataset, topic_model, topics) -%}
     <div class="list-group">
         {% if heading %}
             <div class = "list-group-item active">
@@ -8,7 +8,7 @@
             </div>
         {% endif %}
         {% for topic in topics %}
-            <a href="{{ url_for('topic', dataset_id=dataset.id, topicmodel_id=topicmodel.id, topic_id=topic.id) }}" class="list-group-item">
+            <a href="{{ url_for('topic', dataset_id=dataset.id, topic_model_id=topic_model.id, topic_id=topic.id) }}" class="list-group-item">
             <h4 class="list-group-item-heading">{{ topic.title }}</h4>
             <p class="list-group-item-text">
                 Probability: {{ topic.probability | round(3) }}

@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
 
 {% block navbar_links %}
-<li><a href="{{ url_for('topic_model', dataset_id=dataset.id, topicmodel_id=topicmodel.id) }}">Current Topic Model</a></li>
+<li><a href="{{ url_for('topic_model', dataset_id=dataset.id, topic_model_id=topic_model.id) }}">Current Topic Model</a></li>
 {% endblock %}
