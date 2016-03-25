@@ -66,6 +66,14 @@ def term(dataset_id, topic_model_id, term_id):
 @app.route('/dataset/<int:dataset_id>/topic_model/<int:topic_model_id>/'
            'document/<int:document_id>')
 def document(dataset_id, topic_model_id, document_id):
+    document=Document.query.get((document_id, dataset_id))
+    document_topics = [document_topic for document_topic
+        in document.document_topics if document_topic.topic_model_id == topic_model_id]
+    document_similarities = [similarity for similarity in document.similar_documents_l
+        if similarity.topic_model_id == topic_model_id]
     return render_template('document.html',
         dataset=Dataset.query.get(dataset_id),
-        topic_model=TopicModel.query.get((dataset_id, topic_model_id)))
+        topic_model=TopicModel.query.get((dataset_id, topic_model_id)),
+        document=document,
+        document_topics=document_topics,
+        document_similarities=document_similarities)

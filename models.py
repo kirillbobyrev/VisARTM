@@ -25,6 +25,7 @@ class Document(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.Text)
     abstract = db.Column(db.Text)
+    content = db.Column(db.Text)
 
     dataset_id = db.Column(db.Integer, db.ForeignKey(
         'dataset.id'), primary_key=True)
@@ -37,6 +38,14 @@ class Document(db.Model):
         primaryjoin='and_(Document.id==DocumentTerm.document_id,'
                     'Document.dataset_id==DocumentTerm.dataset_id)',
         backref='document')
+    similar_documents_l = db.relationship('DocumentSimilarity',
+        primaryjoin='and_(Document.id==DocumentSimilarity.document_l_id,'
+                    'Document.dataset_id==DocumentSimilarity.dataset_id)',
+        backref='document_l')
+    similar_documents_r = db.relationship('DocumentSimilarity',
+        primaryjoin='and_(Document.id==DocumentSimilarity.document_r_id,'
+                    'Document.dataset_id==DocumentSimilarity.dataset_id)',
+        backref='document_r')
 
 
 class Term(db.Model):
@@ -113,7 +122,8 @@ class Topic(db.Model):
     document_topics = db.relationship('DocumentTopic',
         primaryjoin='and_(Topic.id==DocumentTopic.topic_id,'
                     'Topic.dataset_id==DocumentTopic.dataset_id,'
-                    'Topic.topic_model_id==DocumentTopic.topic_model_id)')
+                    'Topic.topic_model_id==DocumentTopic.topic_model_id)',
+        backref='topic')
     similar_topics_l = db.relationship('TopicSimilarity',
         primaryjoin='and_(Topic.id==TopicSimilarity.topic_l_id,'
                     'Topic.dataset_id==TopicSimilarity.dataset_id,'
@@ -190,4 +200,4 @@ class DocumentSimilarity(db.Model):
 
 
 topicmodel_models = [Topic, TopicTerm, DocumentTopic, TopicSimilarity, 
-    TermSimilarity]
+    TermSimilarity, DocumentSimilarity]

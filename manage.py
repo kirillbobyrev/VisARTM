@@ -33,10 +33,11 @@ def generate_sample(directory, topic_count=100, document_count=100,
     filename = os.path.join(directory, Document.__tablename__ + '.csv')
     with open(filename, 'w') as csvfile:
         writer = csv.writer(csvfile)
-        writer.writerow(['id', 'title', 'abstract'])
+        writer.writerow(['id', 'title', 'abstract', 'content'])
         for idx in range(document_count):
             writer.writerow([idx, 'document-{}'.format(idx),
-                'document-{} abstract'.format(idx)])
+                'document-{} abstract'.format(idx),
+                '<h1>Title</h1><strong>boldish</strong>'])
 
     # Generate Term table.
     filename = os.path.join(directory, Term.__tablename__ + '.csv')
@@ -111,7 +112,7 @@ def generate_sample(directory, topic_count=100, document_count=100,
                             DocumentSimilarity.__tablename__ + '.csv')
     with open(filename, 'w') as csvfile:
         writer = csv.writer(csvfile)
-        writer.writerow(['docment_l_id', 'document_r_id', 'similarity'])
+        writer.writerow(['document_l_id', 'document_r_id', 'similarity'])
         for document_l in range(document_count):
             for document_r in range(document_count):
                 writer.writerow([document_l, document_r, random.random()])
