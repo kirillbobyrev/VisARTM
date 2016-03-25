@@ -1,1 +1,40 @@
-{% extends "topic_model_layout.html" %}
+{% extends "model_layout.html" %}
+
+{% block jumbotron_header %}
+    Topic "{{ topic.title }}" Overview
+{% endblock %}
+
+{% block jubmotron_content %}
+    Title: 
+    Corresponding Dataset: Dataset #{{ dataset.id }}, "{{ dataset.name }}" 
+{% endblock %}
+
+{% block container_navtabs %}
+    <li><a data-toggle="tab" href="#overview">Overview</a></li>
+    <li><a data-toggle="tab" href="#topics">Terms</a></li>
+    <li><a data-toggle="tab" href="#terms">Documents</a></li>
+    <li><a data-toggle="tab" href="#similar">Similar Topics</a></li>
+{% endblock %}
+
+
+{% block navtabs_content %}
+    <div class="tab-content">
+        <div id="overview" class="tab-pane fade in active">
+            <p>
+                BLANK 
+                <!-- TODO: add some fancy overview right here -->
+            </p>
+        </div>
+        <div id="topics" class="tab-pane fade">
+
+
+        </div>
+        <div id="terms" class="tab-pane">
+
+
+        </div>
+        <div id="similar" class="tab-pane fade">
+
+
+        </div>
+{% endblock %}

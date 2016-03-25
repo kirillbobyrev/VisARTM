@@ -28,9 +28,14 @@ class Document(db.Model):
 
     dataset_id = db.Column(db.Integer, db.ForeignKey(
         'dataset.id'), primary_key=True)
+
     document_topics = db.relationship('DocumentTopic',
         primaryjoin='and_(Document.id==DocumentTopic.document_id,'
                     'Document.dataset_id==DocumentTopic.dataset_id)',
+        backref='document')
+    document_terms = db.relationship('DocumentTerm',
+        primaryjoin='and_(Document.id==DocumentTerm.document_id,'
+                    'Document.dataset_id==DocumentTerm.dataset_id)',
         backref='document')
 
 
@@ -45,6 +50,18 @@ class Term(db.Model):
         primaryjoin='and_(Term.id==TopicTerm.term_id,'
                     'Term.dataset_id==TopicTerm.dataset_id)',
         backref='term')
+    document_terms = db.relationship('DocumentTerm',
+        primaryjoin='and_(Term.id==DocumentTerm.term_id,'
+                    'Term.dataset_id==DocumentTerm.dataset_id)',
+        backref='term')
+    similar_terms_l = db.relationship('TermSimilarity',
+        primaryjoin='and_(Term.id==TermSimilarity.term_l_id,'
+                    'Term.dataset_id==TermSimilarity.dataset_id)',
+        backref='term_l')
+    similar_terms_r = db.relationship('TermSimilarity',
+        primaryjoin='and_(Term.id==TermSimilarity.term_r_id,'
+                    'Term.dataset_id==TermSimilarity.dataset_id)',
+        backref='term_r')
 
 
 class DocumentTerm(db.Model):
