@@ -13,8 +13,7 @@
 {% endblock %}
 
 {% block container_navtabs %}
-    <li><a data-toggle="tab" href="#overview">Overview</a></li>
-    <li><a data-toggle="tab" href="#topics">Topics</a></li>
+    <li class="active"><a data-toggle="tab" href="#topics">Topics</a></li>
     <li><a data-toggle="tab" href="#terms">Terms</a></li>
     <li><a data-toggle="tab" href="#similar">Similar Documents</a></li>
     <li><a data-toggle="tab" href="#content">Content</a></li>
@@ -23,13 +22,7 @@
 
 {% block navtabs_content %}
     <div class="tab-content">
-        <div id="overview" class="tab-pane fade in active">
-            <p>
-                BLANK 
-                <!-- TODO: add some fancy overview right here -->
-            </p>
-        </div>
-        <div id="topics" class="tab-pane fade">
+        <div id="topics" class="tab-pane fade in active">
             <p>
                 <div class="table-responsive col-md-6">
                     <!-- topics_td -->
