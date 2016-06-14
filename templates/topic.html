@@ -7,11 +7,12 @@
 {% block jubmotron_content %}
     Title: {{ topic.title }}
     <br>
-    Corresponding Dataset: Dataset #{{ dataset.id }}, "{{ dataset.name }}" 
-    <br>
     Probability: {{ topic.probability | round(3) }}
     <br>
     IsBackground: {{ topic.is_background }} 
+    <br>
+    <br>
+    Corresponding Dataset: Dataset #{{ dataset.id }}, "{{ dataset.name }}" 
 {% endblock %}
 
 {% block container_navtabs %}
