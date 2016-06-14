@@ -8,7 +8,8 @@ TODO list
   * interesting topic set for exploitary search
   * summarization and segmentation (important for short overview and assessment
   interface
-  * short and amazing overfiew (maybe reuse d3js at some point?)
+  * short and amazing overfiew (maybe reuse [d3js](https://d3js.org) at some
+  point?)
 * Assessment interface
   * assessment mode
   * for each topicmodel provide an interface to assess most relevant topics for
