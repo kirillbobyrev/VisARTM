@@ -201,3 +201,8 @@ class DocumentSimilarity(db.Model):
 
 topicmodel_models = [Topic, TopicTerm, DocumentTopic, TopicSimilarity, 
     TermSimilarity, DocumentSimilarity]
+
+
+# -----------------------------------------------------------------------------
+# Assesment-relatetd models
+# -----------------------------------------------------------------------------

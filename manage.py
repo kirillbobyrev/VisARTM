@@ -36,8 +36,8 @@ def generate_sample(directory, topic_count=100, document_count=100,
         writer.writerow(['id', 'title', 'abstract', 'content'])
         for idx in range(document_count):
             writer.writerow([idx, 'document-{}'.format(idx),
-                'document-{} abstract'.format(idx),
-                '<h1>Title</h1><strong>boldish</strong>'])
+                             'document-{} abstract'.format(idx),
+                             '<h1>Title</h1><strong>boldish</strong>'])
 
     # Generate Term table.
     filename = os.path.join(directory, Term.__tablename__ + '.csv')
@@ -46,7 +46,6 @@ def generate_sample(directory, topic_count=100, document_count=100,
         writer.writerow(['id', 'text'])
         for idx in range(term_count):
             writer.writerow([idx, 'term-{}'.format(idx)])
-
 
     # Generate DocumentTerm table.
     filename = os.path.join(directory, DocumentTerm.__tablename__ + '.csv')
@@ -86,7 +85,6 @@ def generate_sample(directory, topic_count=100, document_count=100,
                 writer.writerow([document_id, topic_id, random.random(),
                                  random.random()])
 
-
     # Generate TopicSimilarity table.
     filename = os.path.join(directory, TopicSimilarity.__tablename__ + '.csv')
     with open(filename, 'w') as csvfile:
@@ -96,7 +94,6 @@ def generate_sample(directory, topic_count=100, document_count=100,
             for topic_r in range(topic_count):
                 writer.writerow([topic_l, topic_r, random.random()])
 
-
     # Generate TermSimilarity table.
     filename = os.path.join(directory, TermSimilarity.__tablename__ + '.csv')
     with open(filename, 'w') as csvfile:
@@ -105,7 +102,6 @@ def generate_sample(directory, topic_count=100, document_count=100,
         for term_l in range(topic_count):
             for term_r in range(topic_count):
                 writer.writerow([term_l, term_r, random.random()])
-
 
     # Generate DocumentSimilarity table.
     filename = os.path.join(directory,
@@ -140,7 +136,7 @@ def add_dataset(name, directory):
     print('Dataset #{} added'.format(dataset.id))
 
     for model in dataset_models:
-        read_from_csv(model, directory, {'dataset_id' : dataset.id})
+        read_from_csv(model, directory, {'dataset_id': dataset.id})
     print('Data for Dataset #{} loaded successfully'.format(dataset.id))
 
 
@@ -155,5 +151,6 @@ def add_topicmodel(name, directory, dataset_id):
 
     for model in topicmodel_models:
         read_from_csv(model, directory,
-            {'dataset_id' : dataset.id, 'topic_model_id' : topic_model.id})
+                      {'dataset_id': dataset.id,
+                       'topic_model_id': topic_model.id})
     print('Data for TopicModel #{} loaded successfully'.format(topic_model.id))
