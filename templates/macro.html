@@ -8,7 +8,9 @@
             </div>
         {% endif %}
         {% for topic in topics %}
-            <a href="{{ url_for('topic', dataset_id=dataset.id, topic_model_id=topic_model.id, topic_id=topic.id) }}" class="list-group-item">
+            <a href="{{ url_for('topic', dataset_id=dataset.id,
+                        topic_model_id=topic_model.id, topic_id=topic.id) }}"
+                        class="list-group-item">
             <h4 class="list-group-item-heading">{{ topic.title }}</h4>
             <p class="list-group-item-text">
                 Probability: {{ topic.probability | round(3) }}
@@ -18,8 +20,10 @@
     </div>
 {%- endmacro %}
 
-{% macro assess_button() -%}
-    <button type="submit" type="button" class="btn btn-default btn-xs btn-assess">
+{% macro assess_button(class_name, id_l, id_r, value) -%}
+    <button type="submit" type="button" class="btn btn-default btn-xs btn-assess"
+        class_name="{{ class_name }}" id_l="{{ id_l }}" id_r="{{ id_r }}"
+        value="{{ value }}">
       <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
     </button>
 {%- endmacro %}

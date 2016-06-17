@@ -16,7 +16,8 @@
     <br>
     Corresponding Dataset: Dataset #{{ dataset.id }}, "{{ dataset.name }}"
     <br>
-    {{ assess_button() }}
+    {{ assess_button(class_name='TopicAssessment', id_l='{{ topic.id }}',
+                     id_r=None, value=0) }}
 {% endblock %}
 
 {% block container_navtabs %}

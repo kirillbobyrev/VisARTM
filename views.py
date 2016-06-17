@@ -86,13 +86,9 @@ def document(dataset_id, topic_model_id, document_id):
 # assessment stuff
 @app.route('/assess', methods=['POST'])
 def assess():
-    print('HEY GUYS')
-    print(request.args)
-    print(request.form)
-    classname = request.args.get('classname', type=str)
-    id_one = request.args.get('id_one', type=int)
-    id_two = request.args.get('id_two', type=int)
-    value = request.args.get('value', type=int)
-    print('assessment request;\nclassname: {}\nid_one: {}\nid_two: {}\nvalue: {}'
-        .format(classname, id_one, id_two, value))
+    class_name = request.form['class_name']
+    id_l = request.form['id_l']
+    id_r = request.form['id_r']
+    value = request.form['value'] 
+    # print(eval(class_name + '()'))
     return jsonify(success = True)
