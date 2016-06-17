@@ -1,12 +1,6 @@
 # -*- encoding: utf-8 ---------------------------------------------------------
 
-from flask import Flask, render_template
-from flask_sqlalchemy import SQLAlchemy
-
-app = Flask(__name__)
-app.config.from_pyfile('config.cfg')
-db = SQLAlchemy(app)
-
+from app import *
 from views import *
 from models import *
 

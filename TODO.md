@@ -5,6 +5,7 @@ TODO list
 * Multimodality
 * Overview
 * Document markup
+* Write about everything (Wiki?)
 
 ---
 

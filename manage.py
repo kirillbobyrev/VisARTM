@@ -5,7 +5,7 @@ import csv
 import os.path
 import random
 
-from serve import db
+from app import db
 from models import *
 
 
