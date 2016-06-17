@@ -24,18 +24,18 @@
                 <div class="table-responsive col-md-6">
                     <!-- topics_wt -->
                     <div class="panel panel-default">
-                        <div class="panel-heading">Topics sorted by p(w|t)</div>
+                        <div class="panel-heading" align="center">Topics sorted by p(w|t)</div>
                         <table class="table table-hover">
                             <tr>
-                                <th>p(w|t)</th>
-                                <th>Topic</th>
+                                <th><div align="center">p(w|t)</div></th>
+                                <th><div align="center">Topic</div></th>
                             </tr>
                             <tr>
                                 {% for topic_term in topic_terms | 
                                     sort(attribute='prob_wt', reverse=True) %}
                                     <tr>
-                                        <td>{{ topic_term.prob_wt | round(3) }}</td>
-                                        <td>
+                                        <td width="20%" align="center">{{ topic_term.prob_wt | round(3) }}</td>
+                                        <td width="80%" align="center">
                                             <a href = "{{ url_for('topic', 
                                                     dataset_id=dataset.id, 
                                                     topic_model_id=topic_model.id,
@@ -54,18 +54,18 @@
                 <div class="table-responsive col-md-6">
                     <!-- topics_tw -->
                     <div class="panel panel-default">
-                        <div class="panel-heading">Topics sorted by p(w|t)</div>
+                        <div class="panel-heading" align="center">Topics sorted by p(w|t)</div>
                         <table class="table table-hover">
                             <tr>
-                                <th>p(t|w)</th>
-                                <th>Topic</th>
+                                <th><div align="center">p(t|w)</div></th>
+                                <th><div align="center">Topic</div></th>
                             </tr>
                             <tr>
                                 {% for topic_term in topic_terms | 
                                     sort(attribute='prob_tw', reverse=True) %}
                                     <tr>
-                                        <td>{{ topic_term.prob_tw | round(3) }}</td>
-                                        <td>
+                                        <td width="20%" align="center">{{ topic_term.prob_tw | round(3) }}</td>
+                                        <td width="80%" align="center">
                                             <a href = "{{ url_for('topic', 
                                                     dataset_id=dataset.id, 
                                                     topic_model_id=topic_model.id,
@@ -86,18 +86,18 @@
         <div id="documents" class="tab-pane fade">
             <p>
                 <div class="panel panel-default">
-                    <div class="panel-heading">Documents sorted by Term count</div>
+                    <div class="panel-heading" align="center">Documents sorted by Term count</div>
                         <table class="table table-hover">
                         <tr>
-                            <th>Count</th>
-                            <th>Document</th>
+                            <th><div align="center">Count</div></th>
+                            <th><div align="center">Document</div></th>
                         </tr>
                         <tr>
                             {% for document_term in term.document_terms | 
                                 sort(attribute='count', reverse=True) %}
                                 <tr>
-                                    <td>{{ document_term.count| round(3) }}</td>
-                                    <td>
+                                    <td width="20%" align="center">{{ document_term.count| round(3) }}</td>
+                                    <td width="80%" align="center">
                                         <a href = "{{ url_for('document', 
                                                 dataset_id=dataset.id, 
                                                 topic_model_id=topic_model.id,
@@ -116,18 +116,18 @@
         <div id="similarities" class="tab-pane fade">
             <p>
                 <div class="panel panel-default">
-                    <div class="panel-heading">Similar Terms sorted by similarity</div>
+                    <div class="panel-heading" align="center">Similar Terms sorted by similarity</div>
                     <table class="table table-hover">
                         <tr>
-                            <th>Similarity</th>
-                            <th>Term</th>
+                            <th><div align="center">Similarity</div></th>
+                            <th><div align="center">Term</div></th>
                         </tr>
                         <tr>
                             {% for similar_term in similar_terms_l | 
                                 sort(attribute='similarity', reverse=True) %}
                                 <tr>
-                                    <td>{{ similar_term.similarity | round(3) }}</td>
-                                    <td>
+                                    <td width="20%" align="center">{{ similar_term.similarity | round(3) }}</td>
+                                    <td width="80%" align="center">
                                         <a href = "{{ url_for('term', 
                                                 dataset_id=dataset.id, 
                                                 topic_model_id=topic_model.id,
