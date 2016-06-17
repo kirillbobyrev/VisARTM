@@ -1,6 +1,15 @@
 TODO list
 =========
 
+* Assessments
+* Multimodality
+* Overview
+* Document markup
+
+---
+
+# OLD STUFF
+
 * Missing visualisation pieces:
   * document view
   * n-gramms view in documents
