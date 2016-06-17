@@ -18,23 +18,8 @@
     </div>
 {%- endmacro %}
 
-{% macro table_model(table) -%}
-    <div class="panel panel-default">
-        <div class="panel-heading">{{ table.heading }}</div>
-        <table class="table table-hover">
-        <tr>
-            {% for column_name in table.column_names %}
-                <th>{{ column_name }}</th>
-            {% endfor %}
-        </tr>
-        <tr>
-            {% for row in table.rows %}
-                <tr>
-                    <td>{{ row[0] | round(3) }}</td>
-                    <td><a href="{{ row[1] }}">{{ row | last }}</td>
-                </tr>
-            {% endfor %}
-        </tr>
-        </table>
-    </div>
+{% macro assess_button() -%}
+    <button type="submit" type="button" class="btn btn-default btn-xs btn-assess">
+      <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+    </button>
 {%- endmacro %}

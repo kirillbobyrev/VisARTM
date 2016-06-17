@@ -1,5 +1,7 @@
 {% extends "model_layout.html" %}
 
+{% from "macro.html" import assess_button %}
+
 {% block jumbotron_header %}
     Topic Overview
 {% endblock %}
@@ -12,7 +14,9 @@
     IsBackground: {{ topic.is_background }} 
     <br>
     <br>
-    Corresponding Dataset: Dataset #{{ dataset.id }}, "{{ dataset.name }}" 
+    Corresponding Dataset: Dataset #{{ dataset.id }}, "{{ dataset.name }}"
+    <br>
+    {{ assess_button() }}
 {% endblock %}
 
 {% block container_navtabs %}
@@ -32,6 +36,7 @@
                         <div class="panel-heading" align="center">Terms sorted by p(w|t)</div>
                         <table class="table table-hover">
                             <tr>
+                                <th><div align="center">Assess</div></th>
                                 <th><div align="center">p(w|t)</div></th>
                                 <th><div align="center">Term</div></th>
                             </tr>
@@ -39,8 +44,11 @@
                                 {% for topic_term in topic.topic_terms | 
                                     sort(attribute='prob_wt', reverse=True) %}
                                     <tr>
-                                        <td align="center">{{ topic_term.prob_wt | round(3) }}</td>
-                                        <td align="center">
+                                        <td width="20%" align="center">
+                                            {{ assess_button() }}
+                                        </td>
+                                        <td align="center" width="20%">{{ topic_term.prob_wt | round(3) }}</td>
+                                        <td align="center" width="60%">
                                             <a href = "{{ url_for('term', 
                                                     dataset_id=dataset.id, 
                                                     topic_model_id=topic_model.id,
@@ -62,6 +70,7 @@
                         <div class="panel-heading" align="center">Terms sorted by p(t|w)</div>
                         <table class="table table-hover">
                             <tr>
+                                <th><div align="center">Assess</div></th>
                                 <th><div align="center">p(t|w)</div></th>
                                 <th><div align="center">Term</div></th>
                             </tr>
@@ -69,8 +78,10 @@
                                 {% for topic_term in topic.topic_terms | 
                                     sort(attribute='prob_tw', reverse=True) %}
                                     <tr>
-                                        <td align="center">{{ topic_term.prob_tw | round(3) }}</td>
-                                        <td align="center">
+                                        <td width="20%" align="center">
+                                            {{ assess_button() }}
+                                        <td width="20%" align="center">{{ topic_term.prob_tw | round(3) }}</td>
+                                        <td width="60%" align="center">
                                             <a href = "{{ url_for('term', 
                                                     dataset_id=dataset.id, 
                                                     topic_model_id=topic_model.id,
@@ -96,6 +107,7 @@
                         <div class="panel-heading" align="center">Documents sorted by p(d|t)</div>
                         <table class="table table-hover">
                             <tr>
+                                <th><div align="center">Assess</div></th>
                                 <th><div align="center">p(d|t)</div></th>
                                 <th><div align="center">Document</div></th>
                             </tr>
@@ -103,8 +115,10 @@
                                 {% for document_topic in topic.document_topics | 
                                     sort(attribute='prob_dt', reverse=True) %}
                                     <tr>
-                                        <td align="center">{{ document_topic.prob_dt | round(3) }}</td>
-                                        <td align="center">
+                                        <td width="20%" align="center">
+                                            {{ assess_button() }}
+                                        <td width="20%" align="center">{{ document_topic.prob_dt | round(3) }}</td>
+                                        <td width="20%" align="center">
                                             <a href = "{{ url_for('document', 
                                                     dataset_id=dataset.id, 
                                                     topic_model_id=topic_model.id,
@@ -126,6 +140,7 @@
                         <div class="panel-heading" align="center">Documents sorted by p(t|d)</div>
                         <table class="table table-hover">
                             <tr>
+                                <th><div align="center">Assess</div></th>
                                 <th><div align="center">p(t|d)</div></th>
                                 <th><div align="center">Document</div></th>
                             </tr>
@@ -133,8 +148,11 @@
                                 {% for document_topic in topic.document_topics | 
                                     sort(attribute='prob_td', reverse=True) %}
                                     <tr>
-                                        <td align="center">{{ document_topic.prob_td | round(3) }}</td>
-                                        <td align="center">
+                                        <td width="20%" align="center">
+                                            {{ assess_button() }}
+                                        </td>
+                                        <td width="20%" align="center">{{ document_topic.prob_td | round(3) }}</td>
+                                        <td width="60%" align="center">
                                             <a href = "{{ url_for('document', 
                                                     dataset_id=dataset.id, 
                                                     topic_model_id=topic_model.id,
@@ -159,6 +177,7 @@
                     <div class="panel-heading" align="center">Similar Topics sorted by similarity</div>
                     <table class="table table-hover">
                         <tr>
+                            <th><div align="center">Assess</div></th>
                             <th><div align="center">Similarity</div></th>
                             <th><div align="center">Topic</div></th>
                         </tr>
@@ -166,7 +185,10 @@
                             {% for topic_similarity in topic.similar_topics_l | 
                                 sort(attribute='similarity', reverse=True) %}
                                 <tr>
-                                    <td width="20%" align="center">{{ topic_similarity.similarity | round(3) }}</td>
+                                    <td width="10%" align="center">
+                                        {{ assess_button() }}
+                                    </td>
+                                    <td width="10%" align="center">{{ topic_similarity.similarity | round(3) }}</td>
                                     <td width="80%" align="center">
                                         <a href = "{{ url_for('topic', 
                                                 dataset_id=dataset.id, 

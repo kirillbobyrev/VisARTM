@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, request, jsonify
 from operator import attrgetter
 
 from serve import *
@@ -81,3 +81,16 @@ def document(dataset_id, topic_model_id, document_id):
                            document=document,
                            document_topics=document_topics,
                            document_similarities=document_similarities)
+
+
+# assessment stuff
+@app.route('/assess', methods=['POST'])
+def assess():
+    print(request.args)
+    classname = request.args.get('classname', type=str)
+    id_one = request.args.get('id_one', type=int)
+    id_two = request.args.get('id_two', type=int)
+    value = request.args.get('value', type=int)
+    print('assessment request;\nclassname: {}\nid_one: {}\nid_two: {}\nvalue: {}'
+        .format(classname, id_one, id_two, value))
+    return jsonify(success = True)
