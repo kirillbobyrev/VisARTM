@@ -1,9 +1,14 @@
 #!/usr/bin/env python3
 
+import os
+
 from manage import *
 
 clear()
 create()
+
+if not os.path.exists('data'):
+        os.makedirs('data')
 
 generate_sample('data')
 
