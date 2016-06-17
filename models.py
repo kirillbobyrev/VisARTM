@@ -1,6 +1,3 @@
-import sys
-import inspect
-
 from serve import db
 
 
@@ -229,3 +226,92 @@ topicmodel_models = [Topic, TopicTerm, DocumentTopic, TopicSimilarity,
 # -----------------------------------------------------------------------------
 # Assesment-relatetd models
 # -----------------------------------------------------------------------------
+
+class TopicAssessment(db.Model):
+    topic_id = db.Column(db.Integer, db.ForeignKey(
+        'topic.id'), primary_key=True)
+    score = db.Column(db.Integer)
+
+
+class TopicToTermAssessment(db.Model):
+    topic_id = db.Column(db.Integer, db.ForeignKey(
+        'topic.id'), primary_key=True)
+    term_id = db.Column(db.Integer, db.ForeignKey(
+        'term.id'), primary_key=True)
+    score = db.Column(db.Integer)
+
+
+class TopicToDocumentAssessment(db.Model):
+    topic_id = db.Column(db.Integer, db.ForeignKey(
+        'topic.id'), primary_key=True)
+    document_id = db.Column(db.Integer, db.ForeignKey(
+        'document.id'), primary_key=True)
+    score = db.Column(db.Integer)
+
+
+class TopicToTopicAssessment(db.Model):
+    topic_l_id = db.Column(db.Integer, db.ForeignKey(
+        'topic.id'), primary_key=True)
+    topic_r_id = db.Column(db.Integer, db.ForeignKey(
+        'topic.id'), primary_key=True)
+    score = db.Column(db.Integer)
+
+
+class TermAssessment(db.Model):
+    term_id = db.Column(db.Integer, db.ForeignKey(
+        'term.id'), primary_key=True)
+    score = db.Column(db.Integer)
+
+
+class TermToTopicAssessment(db.Model):
+    term_id = db.Column(db.Integer, db.ForeignKey(
+        'term.id'), primary_key=True)
+    topic_id = db.Column(db.Integer, db.ForeignKey(
+        'topic.id'), primary_key=True)
+    score = db.Column(db.Integer)
+
+
+class TermToDocumentAssessment(db.Model):
+    term_id = db.Column(db.Integer, db.ForeignKey(
+        'term.id'), primary_key=True)
+    document_id = db.Column(db.Integer, db.ForeignKey(
+        'document.id'), primary_key=True)
+    score = db.Column(db.Integer)
+
+
+class TermToTermAssessment(db.Model):
+    term_l_id = db.Column(db.Integer, db.ForeignKey(
+        'term.id'), primary_key=True)
+    term_r_id = db.Column(db.Integer, db.ForeignKey(
+        'term.id'), primary_key=True)
+    score = db.Column(db.Integer)
+
+
+class DocumentAssessment(db.Model):
+    document_id = db.Column(db.Integer, db.ForeignKey(
+        'document.id'), primary_key=True)
+    score = db.Column(db.Integer)
+
+
+class DocumentToTopicAssessment(db.Model):
+    document_id = db.Column(db.Integer, db.ForeignKey(
+        'document.id'), primary_key=True)
+    topic_id = db.Column(db.Integer, db.ForeignKey(
+        'topic.id'), primary_key=True)
+    score = db.Column(db.Integer)
+
+
+class DocumentToTermAssessment(db.Model):
+    document_id = db.Column(db.Integer, db.ForeignKey(
+        'document.id'), primary_key=True)
+    term_id = db.Column(db.Integer, db.ForeignKey(
+        'term.id'), primary_key=True)
+    score = db.Column(db.Integer)
+
+
+class DocumentToDocumentAssessment(db.Model):
+    document_l_id = db.Column(db.Integer, db.ForeignKey(
+        'document.id'), primary_key=True)
+    document_r_id = db.Column(db.Integer, db.ForeignKey(
+        'document.id'), primary_key=True)
+    score = db.Column(db.Integer)
