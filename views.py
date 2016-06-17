@@ -86,7 +86,9 @@ def document(dataset_id, topic_model_id, document_id):
 # assessment stuff
 @app.route('/assess', methods=['POST'])
 def assess():
+    print('HEY GUYS')
     print(request.args)
+    print(request.form)
     classname = request.args.get('classname', type=str)
     id_one = request.args.get('id_one', type=int)
     id_two = request.args.get('id_two', type=int)
