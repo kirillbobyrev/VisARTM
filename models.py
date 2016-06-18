@@ -48,6 +48,46 @@ class Document(db.Model):
                                           'Document.dataset_id =='
                                           'DocumentSimilarity.dataset_id)',
                                           backref='document_r')
+    document_assessments = db.relationship('DocumentAssessment',
+                                           primaryjoin='and_(Document.id =='
+                                           'DocumentAssessment.document_id,'
+                                           'Document.dataset_id =='
+                                           'DocumentAssessment.dataset_id)',
+                                           backref='document')
+    document_to_topic_assessments = db.relationship(
+        'DocumentToTopicAssessment',
+        primaryjoin='and_(Document.id =='
+        'DocumentToTopicAssessment.'
+        'document_id, Document.dataset_id =='
+        'DocumentToTopicAssessment.'
+        'dataset_id)',
+        backref='document')
+    document_to_term_assessments = db.relationship('DocumentToTermAssessment',
+                                                   primaryjoin='and_(Document.'
+                                                   'id =='
+                                                   'DocumentToTermAssessment.'
+                                                   'document_id,'
+                                                   'Document.dataset_id =='
+                                                   'DocumentToTermAssessment.'
+                                                   'dataset_id)',
+                                                   backref='document')
+    document_to_document_l_assessments = db.relationship(
+        'DocumentToDocumentAssessment',
+        primaryjoin='and_(Document.id =='
+        'DocumentToDocumentAssessment.'
+        'document_l_id,'
+        'Document.dataset_id =='
+        'DocumentToDocumentAssessment.'
+        'dataset_id)',
+        backref='document_l')
+    document_to_document_r_assessments = db.relationship(
+        'DocumentToDocumentAssessment',
+        primaryjoin='and_(Document.id =='
+        'DocumentToDocumentAssessment.'
+        'document_r_id, Document.dataset_id =='
+        'DocumentToDocumentAssessment.'
+        'dataset_id)',
+        backref='document_r')
 
 
 class Term(db.Model):
@@ -80,6 +120,45 @@ class Term(db.Model):
                                       'Term.dataset_id =='
                                       'TermSimilarity.dataset_id)',
                                       backref='term_r')
+    term_assessments = db.relationship('TermAssessment',
+                                       primaryjoin='and_(Term.id =='
+                                       'TermAssessment.term_id,'
+                                       'Term.dataset_id =='
+                                       'TermAssessment.dataset_id)',
+                                       backref='term')
+    term_to_topic_assessments = db.relationship('TermToTopicAssessment',
+                                                primaryjoin='and_(Term.id =='
+                                                'TermToTopicAssessment.'
+                                                'term_id,'
+                                                'Term.dataset_id =='
+                                                'TermToTopicAssessment.'
+                                                'dataset_id)',
+                                                backref='term')
+    term_to_document_assessments = db.relationship('TermToDocumentAssessment',
+                                                   primaryjoin='and_(Term.id'
+                                                   '=='
+                                                   'TermToDocumentAssessment.'
+                                                   'term_id,'
+                                                   'Term.dataset_id =='
+                                                   'TermToDocumentAssessment.'
+                                                   'dataset_id)',
+                                                   backref='term')
+    term_to_term_l_assessments = db.relationship('TermToTermAssessment',
+                                                 primaryjoin='and_(Term.id =='
+                                                 'TermToTermAssessment.'
+                                                 'term_l_id,'
+                                                 'Term.dataset_id =='
+                                                 'TermToTermAssessment.'
+                                                 'dataset_id)',
+                                                 backref='term_l')
+    term_to_term_r_assessments = db.relationship('TermToTermAssessment',
+                                                 primaryjoin='and_(Term.id =='
+                                                 'TermToTermAssessment.'
+                                                 'term_r_id,'
+                                                 'Term.dataset_id =='
+                                                 'TermToTermAssessment.'
+                                                 'dataset_id)',
+                                                 backref='term_r')
 
 
 class DocumentTerm(db.Model):
@@ -155,6 +234,48 @@ class Topic(db.Model):
                                        'Topic.topic_model_id =='
                                        'TopicSimilarity.topic_model_id)',
                                        backref='topic_r')
+    topic_assessments = db.relationship('TopicAssessment',
+                                        primaryjoin='and_(Topic.id =='
+                                        'TopicAssessment.topic_id,'
+                                        'Topic.dataset_id =='
+                                        'TopicAssessment.dataset_id)',
+                                        backref='topic')
+    topic_to_term_assessments = db.relationship('TopicToTermAssessment',
+                                                primaryjoin='and_(Topic.id =='
+                                                'TopicToTermAssessment.'
+                                                'topic_id,'
+                                                'Topic.dataset_id =='
+                                                'TopicToTermAssessment.'
+                                                'dataset_id)',
+                                                backref='topic')
+    topic_to_document_assessments = db.relationship(
+        'TopicToDocumentAssessment',
+        primaryjoin='and_(Topic.id'
+        '=='
+        'TopicToDocumentAssessment.'
+        'topic_id,'
+        'Topic.dataset_id =='
+        'TopicToDocumentAssessment.'
+        'dataset_id)',
+        backref='topic')
+    topic_to_topic_l_assessments = db.relationship('TopicToTopicAssessment',
+                                                   primaryjoin='and_(Topic.id'
+                                                   '=='
+                                                   'TopicToTopicAssessment.'
+                                                   'topic_l_id,'
+                                                   'Topic.dataset_id =='
+                                                   'TopicToTopicAssessment.'
+                                                   'dataset_id)',
+                                                   backref='topic_l')
+    topic_to_topic_r_assessments = db.relationship('TopicToTopicAssessment',
+                                                   primaryjoin='and_(Topic.id'
+                                                   '=='
+                                                   'TopicToTopicAssessment.'
+                                                   'topic_r_id,'
+                                                   'Topic.dataset_id =='
+                                                   'TopicToTopicAssessment.'
+                                                   'dataset_id)',
+                                                   backref='topic_r')
 
 
 class TopicTerm(db.Model):
@@ -228,12 +349,20 @@ topicmodel_models = [Topic, TopicTerm, DocumentTopic, TopicSimilarity,
 # -----------------------------------------------------------------------------
 
 class TopicAssessment(db.Model):
+    dataset_id = db.Column(db.Integer, db.ForeignKey(
+        'dataset.id'), primary_key=True)
+    topic_model_id = db.Column(db.Integer, db.ForeignKey(
+        'topic_model.id'), primary_key=True)
     topic_id = db.Column(db.Integer, db.ForeignKey(
         'topic.id'), primary_key=True)
     score = db.Column(db.Integer)
 
 
 class TopicToTermAssessment(db.Model):
+    dataset_id = db.Column(db.Integer, db.ForeignKey(
+        'dataset.id'), primary_key=True)
+    topic_model_id = db.Column(db.Integer, db.ForeignKey(
+        'topic_model.id'), primary_key=True)
     topic_id = db.Column(db.Integer, db.ForeignKey(
         'topic.id'), primary_key=True)
     term_id = db.Column(db.Integer, db.ForeignKey(
@@ -242,6 +371,10 @@ class TopicToTermAssessment(db.Model):
 
 
 class TopicToDocumentAssessment(db.Model):
+    dataset_id = db.Column(db.Integer, db.ForeignKey(
+        'dataset.id'), primary_key=True)
+    topic_model_id = db.Column(db.Integer, db.ForeignKey(
+        'topic_model.id'), primary_key=True)
     topic_id = db.Column(db.Integer, db.ForeignKey(
         'topic.id'), primary_key=True)
     document_id = db.Column(db.Integer, db.ForeignKey(
@@ -250,6 +383,10 @@ class TopicToDocumentAssessment(db.Model):
 
 
 class TopicToTopicAssessment(db.Model):
+    dataset_id = db.Column(db.Integer, db.ForeignKey(
+        'dataset.id'), primary_key=True)
+    topic_model_id = db.Column(db.Integer, db.ForeignKey(
+        'topic_model.id'), primary_key=True)
     topic_l_id = db.Column(db.Integer, db.ForeignKey(
         'topic.id'), primary_key=True)
     topic_r_id = db.Column(db.Integer, db.ForeignKey(
@@ -258,12 +395,20 @@ class TopicToTopicAssessment(db.Model):
 
 
 class TermAssessment(db.Model):
+    dataset_id = db.Column(db.Integer, db.ForeignKey(
+        'dataset.id'), primary_key=True)
+    topic_model_id = db.Column(db.Integer, db.ForeignKey(
+        'topic_model.id'), primary_key=True)
     term_id = db.Column(db.Integer, db.ForeignKey(
         'term.id'), primary_key=True)
     score = db.Column(db.Integer)
 
 
 class TermToTopicAssessment(db.Model):
+    dataset_id = db.Column(db.Integer, db.ForeignKey(
+        'dataset.id'), primary_key=True)
+    topic_model_id = db.Column(db.Integer, db.ForeignKey(
+        'topic_model.id'), primary_key=True)
     term_id = db.Column(db.Integer, db.ForeignKey(
         'term.id'), primary_key=True)
     topic_id = db.Column(db.Integer, db.ForeignKey(
@@ -272,6 +417,10 @@ class TermToTopicAssessment(db.Model):
 
 
 class TermToDocumentAssessment(db.Model):
+    dataset_id = db.Column(db.Integer, db.ForeignKey(
+        'dataset.id'), primary_key=True)
+    topic_model_id = db.Column(db.Integer, db.ForeignKey(
+        'topic_model.id'), primary_key=True)
     term_id = db.Column(db.Integer, db.ForeignKey(
         'term.id'), primary_key=True)
     document_id = db.Column(db.Integer, db.ForeignKey(
@@ -280,6 +429,10 @@ class TermToDocumentAssessment(db.Model):
 
 
 class TermToTermAssessment(db.Model):
+    dataset_id = db.Column(db.Integer, db.ForeignKey(
+        'dataset.id'), primary_key=True)
+    topic_model_id = db.Column(db.Integer, db.ForeignKey(
+        'topic_model.id'), primary_key=True)
     term_l_id = db.Column(db.Integer, db.ForeignKey(
         'term.id'), primary_key=True)
     term_r_id = db.Column(db.Integer, db.ForeignKey(
@@ -288,12 +441,20 @@ class TermToTermAssessment(db.Model):
 
 
 class DocumentAssessment(db.Model):
+    dataset_id = db.Column(db.Integer, db.ForeignKey(
+        'dataset.id'), primary_key=True)
+    topic_model_id = db.Column(db.Integer, db.ForeignKey(
+        'topic_model.id'), primary_key=True)
     document_id = db.Column(db.Integer, db.ForeignKey(
         'document.id'), primary_key=True)
     score = db.Column(db.Integer)
 
 
 class DocumentToTopicAssessment(db.Model):
+    dataset_id = db.Column(db.Integer, db.ForeignKey(
+        'dataset.id'), primary_key=True)
+    topic_model_id = db.Column(db.Integer, db.ForeignKey(
+        'topic_model.id'), primary_key=True)
     document_id = db.Column(db.Integer, db.ForeignKey(
         'document.id'), primary_key=True)
     topic_id = db.Column(db.Integer, db.ForeignKey(
@@ -302,6 +463,10 @@ class DocumentToTopicAssessment(db.Model):
 
 
 class DocumentToTermAssessment(db.Model):
+    dataset_id = db.Column(db.Integer, db.ForeignKey(
+        'dataset.id'), primary_key=True)
+    topic_model_id = db.Column(db.Integer, db.ForeignKey(
+        'topic_model.id'), primary_key=True)
     document_id = db.Column(db.Integer, db.ForeignKey(
         'document.id'), primary_key=True)
     term_id = db.Column(db.Integer, db.ForeignKey(
@@ -310,6 +475,10 @@ class DocumentToTermAssessment(db.Model):
 
 
 class DocumentToDocumentAssessment(db.Model):
+    dataset_id = db.Column(db.Integer, db.ForeignKey(
+        'dataset.id'), primary_key=True)
+    topic_model_id = db.Column(db.Integer, db.ForeignKey(
+        'topic_model.id'), primary_key=True)
     document_l_id = db.Column(db.Integer, db.ForeignKey(
         'document.id'), primary_key=True)
     document_r_id = db.Column(db.Integer, db.ForeignKey(
