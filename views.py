@@ -89,6 +89,6 @@ def assess():
     class_name = request.form['class_name']
     id_l = request.form['id_l']
     id_r = request.form['id_r']
-    value = request.form['value'] 
+    value = request.form['value']
     # print(eval(class_name + '()'))
-    return jsonify(success = True)
+    return jsonify(success=True)
