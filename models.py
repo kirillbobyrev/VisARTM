@@ -48,12 +48,12 @@ class Document(db.Model):
                                           'Document.dataset_id =='
                                           'DocumentSimilarity.dataset_id)',
                                           backref='document_r')
-    document_assessments = db.relationship('DocumentAssessment',
-                                           primaryjoin='and_(Document.id =='
-                                           'DocumentAssessment.document_id,'
-                                           'Document.dataset_id =='
-                                           'DocumentAssessment.dataset_id)',
-                                           backref='document')
+    document_assessment = db.relationship('DocumentAssessment',
+                                          primaryjoin='and_(Document.id =='
+                                          'DocumentAssessment.document_id,'
+                                          'Document.dataset_id =='
+                                          'DocumentAssessment.dataset_id)',
+                                          backref='document')
     document_to_topic_assessments = db.relationship(
         'DocumentToTopicAssessment',
         primaryjoin='and_(Document.id =='
@@ -120,12 +120,12 @@ class Term(db.Model):
                                       'Term.dataset_id =='
                                       'TermSimilarity.dataset_id)',
                                       backref='term_r')
-    term_assessments = db.relationship('TermAssessment',
-                                       primaryjoin='and_(Term.id =='
-                                       'TermAssessment.term_id,'
-                                       'Term.dataset_id =='
-                                       'TermAssessment.dataset_id)',
-                                       backref='term')
+    term_assessment = db.relationship('TermAssessment',
+                                      primaryjoin='and_(Term.id =='
+                                      'TermAssessment.term_id,'
+                                      'Term.dataset_id =='
+                                      'TermAssessment.dataset_id)',
+                                      backref='term')
     term_to_topic_assessments = db.relationship('TermToTopicAssessment',
                                                 primaryjoin='and_(Term.id =='
                                                 'TermToTopicAssessment.'
@@ -234,12 +234,12 @@ class Topic(db.Model):
                                        'Topic.topic_model_id =='
                                        'TopicSimilarity.topic_model_id)',
                                        backref='topic_r')
-    topic_assessments = db.relationship('TopicAssessment',
-                                        primaryjoin='and_(Topic.id =='
-                                        'TopicAssessment.topic_id,'
-                                        'Topic.dataset_id =='
-                                        'TopicAssessment.dataset_id)',
-                                        backref='topic')
+    topic_assessment = db.relationship('TopicAssessment',
+                                       primaryjoin='and_(Topic.id =='
+                                       'TopicAssessment.topic_id,'
+                                       'Topic.dataset_id =='
+                                       'TopicAssessment.dataset_id)',
+                                       backref='topic')
     topic_to_term_assessments = db.relationship('TopicToTermAssessment',
                                                 primaryjoin='and_(Topic.id =='
                                                 'TopicToTermAssessment.'

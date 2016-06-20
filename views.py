@@ -3,6 +3,7 @@ from operator import attrgetter
 
 from serve import *
 from models import *
+from app import db
 
 
 @app.route('/')
@@ -86,9 +87,9 @@ def document(dataset_id, topic_model_id, document_id):
 # assessment stuff
 @app.route('/assess', methods=['POST'])
 def assess():
-    class_name = request.form['class_name']
-    id_l = request.form['id_l']
-    id_r = request.form['id_r']
-    value = request.form['value']
-    # print(eval(class_name + '()'))
+    print(request.form)
+    assessment = eval(request.form['class_name'] + '({}, score={})'.format(
+        request.form['arg_list'], request.form['score']))
+    db.session.add(assessment)
+    db.session.commit()
     return jsonify(success=True)

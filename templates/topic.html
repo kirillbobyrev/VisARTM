@@ -16,8 +16,12 @@
     <br>
     Corresponding Dataset: Dataset #{{ dataset.id }}, "{{ dataset.name }}"
     <br>
-    {{ assess_button(class_name='TopicAssessment', id_l='{{ topic.id }}',
-                     id_r=None, value=0) }}
+    <button type="submit" type="button" class="btn btn-default btn-xs btn-assess"
+        class_name='TopicAssessment'
+        arg_list='dataset_id={{topic.dataset_id}}, topic_model_id={{ topic.topic_model_id }}, topic_id={{ topic.id }}'
+        score=0>
+      <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+    </button>
 {% endblock %}
 
 {% block container_navtabs %}
@@ -46,7 +50,12 @@
                                     sort(attribute='prob_wt', reverse=True) %}
                                     <tr>
                                         <td width="20%" align="center">
-                                            {{ assess_button() }}
+                                          <button type="submit" type="button" class="btn btn-default btn-xs btn-assess"
+                                              class_name='TopicToTermAssessment'
+                                              arg_list='dataset_id={{topic.dataset_id}}, topic_model_id={{ topic.topic_model_id }}, topic_id={{ topic.id }}, term_id={{ topic_term.term_id }}'
+                                              score=0>
+                                            <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+                                          </button>
                                         </td>
                                         <td align="center" width="20%">{{ topic_term.prob_wt | round(3) }}</td>
                                         <td align="center" width="60%">
@@ -80,7 +89,12 @@
                                     sort(attribute='prob_tw', reverse=True) %}
                                     <tr>
                                         <td width="20%" align="center">
-                                            {{ assess_button() }}
+                                          <button type="submit" type="button" class="btn btn-default btn-xs btn-assess"
+                                              class_name='TopicToTermAssessment'
+                                              arg_list='dataset_id={{topic.dataset_id}}, topic_model_id={{ topic.topic_model_id }}, topic_id={{ topic.id }}, term_id={{ topic_term.term_id }}'
+                                              score=0>
+                                            <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+                                          </button>
                                         <td width="20%" align="center">{{ topic_term.prob_tw | round(3) }}</td>
                                         <td width="60%" align="center">
                                             <a href = "{{ url_for('term', 
@@ -117,9 +131,14 @@
                                     sort(attribute='prob_dt', reverse=True) %}
                                     <tr>
                                         <td width="20%" align="center">
-                                            {{ assess_button() }}
+                                          <button type="submit" type="button" class="btn btn-default btn-xs btn-assess"
+                                              class_name='TopicToDocumentAssessment'
+                                              arg_list='dataset_id={{topic.dataset_id}}, topic_model_id={{ topic.topic_model_id }}, topic_id={{ topic.id }}, term_id={{ document_topic.document_id }}'
+                                              score=0>
+                                            <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+                                          </button>
                                         <td width="20%" align="center">{{ document_topic.prob_dt | round(3) }}</td>
-                                        <td width="20%" align="center">
+                                        <td width="60%" align="center">
                                             <a href = "{{ url_for('document', 
                                                     dataset_id=dataset.id, 
                                                     topic_model_id=topic_model.id,
@@ -132,10 +151,7 @@
                                 {% endfor %}
                             </tr>
                         </table>
-                    </div>
-                    <!-- documents_dt -->
-                </div>
-                <div class="table-responsive col-md-6">
+                    </div> <!-- documents_dt --> </div> <div class="table-responsive col-md-6">
                     <!-- documents_dt -->
                     <div class="panel panel-default">
                         <div class="panel-heading" align="center">Documents sorted by p(t|d)</div>
@@ -150,7 +166,12 @@
                                     sort(attribute='prob_td', reverse=True) %}
                                     <tr>
                                         <td width="20%" align="center">
-                                            {{ assess_button() }}
+                                          <button type="submit" type="button" class="btn btn-default btn-xs btn-assess"
+                                              class_name='TopicToDocumentAssessment'
+                                              arg_list='dataset_id={{topic.dataset_id}}, topic_model_id={{ topic.topic_model_id }}, topic_id={{ topic.id }}, term_id={{ document_topic.document_id }}'
+                                              score=0>
+                                            <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+                                          </button>
                                         </td>
                                         <td width="20%" align="center">{{ document_topic.prob_td | round(3) }}</td>
                                         <td width="60%" align="center">
@@ -187,7 +208,12 @@
                                 sort(attribute='similarity', reverse=True) %}
                                 <tr>
                                     <td width="10%" align="center">
-                                        {{ assess_button() }}
+                                      <button type="submit" type="button" class="btn btn-default btn-xs btn-assess"
+                                          class_name='TopicToTopicAssessment'
+                                          arg_list='dataset_id={{topic.dataset_id}}, topic_model_id={{ topic.topic_model_id }}, topic_l_id={{ topic.id }}, topic_r_id={{topic_similarity.topic_r_id}}'
+                                          score=0>
+                                        <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+                                      </button>
                                     </td>
                                     <td width="10%" align="center">{{ topic_similarity.similarity | round(3) }}</td>
                                     <td width="80%" align="center">

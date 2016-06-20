@@ -7,7 +7,7 @@
                 </h4>
             </div>
         {% endif %}
-        {% for topic in topics %}
+        {% for topic in topics | sort(attribute='probability', reverse=True) %}
             <a href="{{ url_for('topic', dataset_id=dataset.id,
                         topic_model_id=topic_model.id, topic_id=topic.id) }}"
                         class="list-group-item">
@@ -20,10 +20,10 @@
     </div>
 {%- endmacro %}
 
-{% macro assess_button(class_name, id_l, id_r, value) -%}
+{% macro assess_button(class_name, arg_list, value) -%}
     <button type="submit" type="button" class="btn btn-default btn-xs btn-assess"
-        class_name="{{ class_name }}" id_l="{{ id_l }}" id_r="{{ id_r }}"
-        value="{{ value }}">
+        class_name='{{ class_name }}' arg_list='{{ arg_list }}'
+        value='{{ value }}'>
       <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
     </button>
 {%- endmacro %}

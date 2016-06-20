@@ -23,9 +23,8 @@ $(function() {
             url: '/assess',
             data: {
                 class_name: $(this).attr('class_name'),
-                id_l: $(this).attr('id_l'),
-                id_r: $(this).attr('id_r'),
-                value: $(this).attr('value')
+                arg_list: $(this).attr('arg_list'),
+                score: $(this).attr('score')
             },
             type: 'POST',
             success: function(response) {},
