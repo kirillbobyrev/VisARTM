@@ -90,6 +90,8 @@ def assess():
     print(request.form)
     assessment = eval(request.form['class_name'] + '({}, score={})'.format(
         request.form['arg_list'], request.form['score']))
+    eval(request.form['class_name'] + '.query.filter_by({})'
+        .format(request.form['arg_list']) + '.delete()')
     db.session.add(assessment)
     db.session.commit()
     return jsonify(success=True)
