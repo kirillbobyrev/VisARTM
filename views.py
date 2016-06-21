@@ -40,7 +40,7 @@ def browse_topics(dataset_id, topic_model_id):
 @app.route('/dataset/<int:dataset_id>/topic_model/<int:topic_model_id>'
            '/topic/<int:topic_id>')
 def topic(dataset_id, topic_model_id, topic_id):
-    topic = Topic.query.get((dataset_id,topic_model_id, topic_id))
+    topic = Topic.query.get((dataset_id, topic_model_id, topic_id))
  
     topic_score = 0
     for topic_assessment in topic.topic_assessment:
@@ -49,8 +49,6 @@ def topic(dataset_id, topic_model_id, topic_id):
     topic_to_term_scores = [0] * len(Term.query.all())
     for topic_to_term_assessment in topic.topic_to_term_assessments:
         topic_to_term_scores[topic_to_term_assessment.term_id] = topic_to_term_assessment.score
-        print(topic_to_term_assessment)
-        print(topic_to_term_assessment.score)
 
     topic_to_document_scores = [0] * len(Document.query.all())
     for topic_to_document_assessment in topic.topic_to_document_assessments:
@@ -59,10 +57,6 @@ def topic(dataset_id, topic_model_id, topic_id):
     topic_to_topic_scores = [0] * len(Topic.query.all())
     for topic_to_topic_assessment in topic.topic_to_topic_l_assessments:
         topic_to_topic_scores[topic_to_topic_assessment.topic_r_id] = topic_to_topic_assessment.score
-
-    print(topic_to_term_scores)
-    print(topic_to_document_scores)
-    print(topic_to_topic_scores)
 
     return render_template('topic.html',
                            dataset=Dataset.query.get(dataset_id),
@@ -83,13 +77,34 @@ def term(dataset_id, topic_model_id, term_id):
                    if topic_term.topic_model_id == topic_model_id]
     similar_terms_l = [similar_term for similar_term in term.similar_terms_l
                        if similar_term.topic_model_id == topic_model_id]
+
+    term_score = 0
+    for term_assessment in term.term_assessment:
+        term_score = term_assessment.score
+
+    term_to_topic_scores = [0] * len(Topic.query.all())
+    for term_to_topic_assessment in term.term_to_topic_assessments:
+        term_to_topic_scores[term_to_topic_assessment.topic_id] = term_to_topic_assessment.score
+
+    term_to_document_scores = [0] * len(Document.query.all())
+    for term_to_document_assessment in term.term_to_document_assessments:
+        term_to_document_scores[term_to_document_assessment.document_id] = term_to_document_assessment.score
+
+    term_to_term_scores = [0] * len(Term.query.all())
+    for term_to_term_assessment in term.term_to_term_l_assessments:
+        term_to_term_scores[term_to_term_assessment.term_r_id] = term_to_term_assessment.score
+
     return render_template('term.html',
                            dataset=Dataset.query.get(dataset_id),
                            topic_model=TopicModel.query.get((dataset_id,
                                                              topic_model_id)),
                            term=term,
                            topic_terms=topic_terms,
-                           similar_terms_l=similar_terms_l)
+                           similar_terms_l=similar_terms_l,
+                           term_score=term_score,
+                           term_to_topic_scores=term_to_topic_scores,
+                           term_to_document_scores=term_to_document_scores,
+                           term_to_term_scores=term_to_term_scores)
 
 
 @app.route('/dataset/<int:dataset_id>/topic_model/<int:topic_model_id>/'
@@ -102,13 +117,34 @@ def document(dataset_id, topic_model_id, document_id):
     document_similarities = [similarity for similarity in
                              document.similar_documents_l if
                              similarity.topic_model_id == topic_model_id]
+
+    document_score = 0
+    for document_assessment in document.document_assessment:
+        document_score = document_assessment.score
+
+    document_to_topic_scores = [0] * len(Topic.query.all())
+    for document_to_topic_assessment in document.document_to_topic_assessments:
+        document_to_topic_scores[document_to_topic_assessment.topic_id] = document_to_topic_assessment.score
+
+    document_to_term_scores = [0] * len(Term.query.all())
+    for document_to_term_assessment in document.document_to_term_assessments:
+        document_to_term_scores[document_to_term_assessment.term_id] = document_to_term_assessment.score
+
+    document_to_document_scores = [0] * len(Document.query.all())
+    for document_to_document_assessment in document.document_to_document_l_assessments:
+        document_to_document_scores[document_to_document_assessment.document_r_id] = document_to_document_assessment.score
+
     return render_template('document.html',
                            dataset=Dataset.query.get(dataset_id),
                            topic_model=TopicModel.query.get((dataset_id,
                                                              topic_model_id)),
                            document=document,
                            document_topics=document_topics,
-                           document_similarities=document_similarities)
+                           document_similarities=document_similarities,
+                           document_score=document_score,
+                           document_to_topic_scores=document_to_topic_scores,
+                           document_to_term_scores=document_to_term_scores,
+                           document_to_document_scores=document_to_document_scores)
 
 
 # assessment stuff

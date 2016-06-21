@@ -8,6 +8,21 @@
     Text: {{ term.text }}
     <br>
     Corresponding Dataset: Dataset #{{ dataset.id }}, "{{ dataset.name }}" 
+    <br>
+    <button type="submit" type="button" class="btn btn-default btn-xs btn-assess"
+        class_name='TermAssessment'
+        arg_list='dataset_id={{term.dataset_id}}, term_id={{ term.id }}'
+        score={{ term_score }}>
+        {% if term_score == 0 %}
+            <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
+        {% endif %}
+        {% if term_score == 1 %}
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        {% endif %}
+        {% if term_score == -1 %}
+            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+        {% endif %}
+    </button>
 {% endblock %}
 
 {% block container_navtabs %}
@@ -27,6 +42,7 @@
                         <div class="panel-heading" align="center">Topics sorted by p(w|t)</div>
                         <table class="table table-hover">
                             <tr>
+                                <th><div align="center">Assess</div></th>
                                 <th><div align="center">p(w|t)</div></th>
                                 <th><div align="center">Topic</div></th>
                             </tr>
@@ -34,8 +50,24 @@
                                 {% for topic_term in topic_terms | 
                                     sort(attribute='prob_wt', reverse=True) %}
                                     <tr>
+                                        <td width="20%" align="center">
+                                          <button type="submit" type="button" class="btn btn-default btn-xs btn-assess"
+                                              class_name='TermToTopicAssessment'
+                                              arg_list='dataset_id={{term.dataset_id}}, topic_model_id={{ topic_term.topic.topic_model_id }}, topic_id={{ topic_term.topic_id }}, term_id={{ term.id }}'
+                                              score={{ term_to_topic_scores[topic_term.topic_id] }}>
+                                            {% if term_to_topic_scores[topic_term.topic_id] == 0 %}
+                                                <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
+                                            {% endif %}
+                                            {% if term_to_topic_scores[topic_term.topic_id] == 1 %}
+                                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                            {% endif %}
+                                            {% if term_to_topic_scores[topic_term.topic_id] == -1 %}
+                                                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                                            {% endif %}
+                                          </button>
+                                        </td>
                                         <td width="20%" align="center">{{ topic_term.prob_wt | round(3) }}</td>
-                                        <td width="80%" align="center">
+                                        <td width="60%" align="center">
                                             <a href = "{{ url_for('topic', 
                                                     dataset_id=dataset.id, 
                                                     topic_model_id=topic_model.id,
@@ -57,6 +89,7 @@
                         <div class="panel-heading" align="center">Topics sorted by p(w|t)</div>
                         <table class="table table-hover">
                             <tr>
+                                <th><div align="center">Assess</div></th>
                                 <th><div align="center">p(t|w)</div></th>
                                 <th><div align="center">Topic</div></th>
                             </tr>
@@ -64,8 +97,24 @@
                                 {% for topic_term in topic_terms | 
                                     sort(attribute='prob_tw', reverse=True) %}
                                     <tr>
+                                        <td width="20%" align="center">
+                                          <button type="submit" type="button" class="btn btn-default btn-xs btn-assess"
+                                              class_name='TermToTopicAssessment'
+                                              arg_list='dataset_id={{term.dataset_id}}, topic_model_id={{ topic_term.topic.topic_model_id }}, topic_id={{ topic_term.topic_id }}, term_id={{ term.id }}'
+                                              score={{ term_to_topic_scores[topic_term.topic_id] }}>
+                                            {% if term_to_topic_scores[topic_term.topic_id] == 0 %}
+                                                <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
+                                            {% endif %}
+                                            {% if term_to_topic_scores[topic_term.topic_id] == 1 %}
+                                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                            {% endif %}
+                                            {% if term_to_topic_scores[topic_term.topic_id] == -1 %}
+                                                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                                            {% endif %}
+                                          </button>
+                                        </td>
                                         <td width="20%" align="center">{{ topic_term.prob_tw | round(3) }}</td>
-                                        <td width="80%" align="center">
+                                        <td width="60%" align="center">
                                             <a href = "{{ url_for('topic', 
                                                     dataset_id=dataset.id, 
                                                     topic_model_id=topic_model.id,
@@ -89,6 +138,7 @@
                     <div class="panel-heading" align="center">Documents sorted by Term count</div>
                         <table class="table table-hover">
                         <tr>
+                            <th><div align="center">Assess</div></th>
                             <th><div align="center">Count</div></th>
                             <th><div align="center">Document</div></th>
                         </tr>
@@ -96,7 +146,23 @@
                             {% for document_term in term.document_terms | 
                                 sort(attribute='count', reverse=True) %}
                                 <tr>
-                                    <td width="20%" align="center">{{ document_term.count| round(3) }}</td>
+                                  <td width="10%" align="center">
+                                    <button type="submit" type="button" class="btn btn-default btn-xs btn-assess"
+                                        class_name='TermToDocumentAssessment'
+                                        arg_list='dataset_id={{term.dataset_id}}, document_id ={{ document_term.document_id}}, term_id={{ term.id }}'
+                                        score={{ term_to_document_scores[document_term.document_id] }}>
+                                      {% if term_to_document_scores[document_term.document_id] == 0 %}
+                                          <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
+                                      {% endif %}
+                                      {% if term_to_document_scores[document_term.document_id] == 1 %}
+                                          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                      {% endif %}
+                                      {% if term_to_document_scores[document_term.document_id] == -1 %}
+                                          <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                                      {% endif %}
+                                    </button>
+                                  </td>
+                                  <td width="10%" align="center">{{ document_term.count| round(3) }}</td>
                                     <td width="80%" align="center">
                                         <a href = "{{ url_for('document', 
                                                 dataset_id=dataset.id, 
@@ -119,6 +185,7 @@
                     <div class="panel-heading" align="center">Similar Terms sorted by similarity</div>
                     <table class="table table-hover">
                         <tr>
+                            <th><div align="center">Assess</div></th>
                             <th><div align="center">Similarity</div></th>
                             <th><div align="center">Term</div></th>
                         </tr>
@@ -126,8 +193,25 @@
                             {% for similar_term in similar_terms_l | 
                                 sort(attribute='similarity', reverse=True) %}
                                 <tr>
+                                  <td width="20%" align="center">
+                                    <button type="submit" type="button" class="btn btn-default btn-xs btn-assess"
+                                        class_name='TermToTermAssessment'
+                                        arg_list='dataset_id={{term.dataset_id}}, term_r_id={{ similar_term.term_r_id }}, term_l_id={{ term.id }}'
+                                        score={{ term_to_term_scores[similar_term.term_r_id] }}>
+                                      {% if term_to_term_scores[similar_term.term_r_id] == 0 %}
+                                          <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
+                                      {% endif %}
+                                      {% if term_to_term_scores[similar_term.term_r_id] == 1 %}
+                                          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                      {% endif %}
+                                      {% if term_to_term_scores[similar_term.term_r_id] == -1 %}
+                                          <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                                      {% endif %}
+                                    </button>
+                                  </td>
+
                                     <td width="20%" align="center">{{ similar_term.similarity | round(3) }}</td>
-                                    <td width="80%" align="center">
+                                    <td width="60%" align="center">
                                         <a href = "{{ url_for('term', 
                                                 dataset_id=dataset.id, 
                                                 topic_model_id=topic_model.id,

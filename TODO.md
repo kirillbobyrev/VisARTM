@@ -1,10 +1,6 @@
 TODO list
 =========
 
-* Assessments
-* Multimodality
-* Overview
-* Document markup
 * Write about everything (Wiki?)
 
 ---

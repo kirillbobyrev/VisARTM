@@ -397,8 +397,6 @@ class TopicToTopicAssessment(db.Model):
 class TermAssessment(db.Model):
     dataset_id = db.Column(db.Integer, db.ForeignKey(
         'dataset.id'), primary_key=True)
-    topic_model_id = db.Column(db.Integer, db.ForeignKey(
-        'topic_model.id'), primary_key=True)
     term_id = db.Column(db.Integer, db.ForeignKey(
         'term.id'), primary_key=True)
     score = db.Column(db.Integer)
@@ -419,8 +417,6 @@ class TermToTopicAssessment(db.Model):
 class TermToDocumentAssessment(db.Model):
     dataset_id = db.Column(db.Integer, db.ForeignKey(
         'dataset.id'), primary_key=True)
-    topic_model_id = db.Column(db.Integer, db.ForeignKey(
-        'topic_model.id'), primary_key=True)
     term_id = db.Column(db.Integer, db.ForeignKey(
         'term.id'), primary_key=True)
     document_id = db.Column(db.Integer, db.ForeignKey(
@@ -431,8 +427,6 @@ class TermToDocumentAssessment(db.Model):
 class TermToTermAssessment(db.Model):
     dataset_id = db.Column(db.Integer, db.ForeignKey(
         'dataset.id'), primary_key=True)
-    topic_model_id = db.Column(db.Integer, db.ForeignKey(
-        'topic_model.id'), primary_key=True)
     term_l_id = db.Column(db.Integer, db.ForeignKey(
         'term.id'), primary_key=True)
     term_r_id = db.Column(db.Integer, db.ForeignKey(
@@ -443,8 +437,6 @@ class TermToTermAssessment(db.Model):
 class DocumentAssessment(db.Model):
     dataset_id = db.Column(db.Integer, db.ForeignKey(
         'dataset.id'), primary_key=True)
-    topic_model_id = db.Column(db.Integer, db.ForeignKey(
-        'topic_model.id'), primary_key=True)
     document_id = db.Column(db.Integer, db.ForeignKey(
         'document.id'), primary_key=True)
     score = db.Column(db.Integer)
@@ -465,8 +457,6 @@ class DocumentToTopicAssessment(db.Model):
 class DocumentToTermAssessment(db.Model):
     dataset_id = db.Column(db.Integer, db.ForeignKey(
         'dataset.id'), primary_key=True)
-    topic_model_id = db.Column(db.Integer, db.ForeignKey(
-        'topic_model.id'), primary_key=True)
     document_id = db.Column(db.Integer, db.ForeignKey(
         'document.id'), primary_key=True)
     term_id = db.Column(db.Integer, db.ForeignKey(
@@ -477,8 +467,6 @@ class DocumentToTermAssessment(db.Model):
 class DocumentToDocumentAssessment(db.Model):
     dataset_id = db.Column(db.Integer, db.ForeignKey(
         'dataset.id'), primary_key=True)
-    topic_model_id = db.Column(db.Integer, db.ForeignKey(
-        'topic_model.id'), primary_key=True)
     document_l_id = db.Column(db.Integer, db.ForeignKey(
         'document.id'), primary_key=True)
     document_r_id = db.Column(db.Integer, db.ForeignKey(
