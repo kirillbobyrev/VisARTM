@@ -40,12 +40,39 @@ def browse_topics(dataset_id, topic_model_id):
 @app.route('/dataset/<int:dataset_id>/topic_model/<int:topic_model_id>'
            '/topic/<int:topic_id>')
 def topic(dataset_id, topic_model_id, topic_id):
+    topic = Topic.query.get((dataset_id,topic_model_id, topic_id))
+ 
+    topic_score = 0
+    for topic_assessment in topic.topic_assessment:
+        topic_score = topic_assessment.score
+
+    topic_to_term_scores = [0] * len(Term.query.all())
+    for topic_to_term_assessment in topic.topic_to_term_assessments:
+        topic_to_term_scores[topic_to_term_assessment.term_id] = topic_to_term_assessment.score
+        print(topic_to_term_assessment)
+        print(topic_to_term_assessment.score)
+
+    topic_to_document_scores = [0] * len(Document.query.all())
+    for topic_to_document_assessment in topic.topic_to_document_assessments:
+        topic_to_document_scores[topic_to_document_assessment.document_id] = topic_to_document_assessment.score
+
+    topic_to_topic_scores = [0] * len(Topic.query.all())
+    for topic_to_topic_assessment in topic.topic_to_topic_l_assessments:
+        topic_to_topic_scores[topic_to_topic_assessment.topic_r_id] = topic_to_topic_assessment.score
+
+    print(topic_to_term_scores)
+    print(topic_to_document_scores)
+    print(topic_to_topic_scores)
+
     return render_template('topic.html',
                            dataset=Dataset.query.get(dataset_id),
                            topic_model=TopicModel.query.get((dataset_id,
                                                              topic_model_id)),
-                           topic=Topic.query.get((dataset_id,
-                                                  topic_model_id, topic_id)))
+                           topic=topic,
+                           topic_score=topic_score,
+                           topic_to_term_scores=topic_to_term_scores,
+                           topic_to_document_scores=topic_to_document_scores,
+                           topic_to_topic_scores=topic_to_topic_scores)
 
 
 @app.route('/dataset/<int:dataset_id>/topic_model/<int:topic_model_id>/'

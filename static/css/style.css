@@ -5,3 +5,11 @@ body {
 .content {
   padding: 40px 15px;
 }
+
+.glyphicon-minus {
+    color: red;
+}
+
+.glyphicon-plus {
+    color: blue;
+}

@@ -4,20 +4,20 @@ $(function() {
 
         var value_to_btn_class = new Map();
         value_to_btn_class.set(-1, 'glyphicon-minus');
-        value_to_btn_class.set(0, 'glyphicon-asterisk');
+        value_to_btn_class.set(0, 'glyphicon-unchecked');
         value_to_btn_class.set(1, 'glyphicon-plus');
 
-        var current_value = parseInt($(this).attr('value'));
+        var current_value = parseInt($(this).attr('score'));
 
         child.toggleClass(value_to_btn_class.get(current_value));
 
-        var next_value = 1;
-        if (current_value == 1) {
+        var next_value = current_value + 1;
+        if (next_value > 1) {
             next_value = -1;
         }
 
         child.addClass(value_to_btn_class.get(next_value));
-        $(this).attr('value', next_value);
+        $(this).attr('score', next_value);
 
         $.ajax({
             url: '/assess',

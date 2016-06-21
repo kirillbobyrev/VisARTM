@@ -99,8 +99,7 @@ def generate_sample(directory, topic_count=100, document_count=100,
         for term_l in range(topic_count):
             for term_r in range(topic_count):
                 writer.writerow([term_l, term_r, random.random()])
-
-    # Generate DocumentSimilarity table.
+# Generate DocumentSimilarity table.
     filename = os.path.join(directory,
                             DocumentSimilarity.__tablename__ + '.csv')
     with open(filename, 'w') as csvfile:
@@ -145,7 +144,6 @@ def add_topicmodel(name, directory, dataset_id):
     db.session.commit()
     print('TopicModel #{} for Dataset #{} added'.format(topic_model.id,
                                                         dataset.id))
-
     for model in topicmodel_models:
         read_from_csv(model, directory,
                       {'dataset_id': dataset.id,

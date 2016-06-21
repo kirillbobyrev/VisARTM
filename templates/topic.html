@@ -19,8 +19,16 @@
     <button type="submit" type="button" class="btn btn-default btn-xs btn-assess"
         class_name='TopicAssessment'
         arg_list='dataset_id={{topic.dataset_id}}, topic_model_id={{ topic.topic_model_id }}, topic_id={{ topic.id }}'
-        score=0>
-      <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+        score={{ topic_score }}>
+        {% if topic_score == 0 %}
+            <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
+        {% endif %}
+        {% if topic_score == 1 %}
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        {% endif %}
+        {% if topic_score == -1 %}
+            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+        {% endif %}
     </button>
 {% endblock %}
 
@@ -53,8 +61,16 @@
                                           <button type="submit" type="button" class="btn btn-default btn-xs btn-assess"
                                               class_name='TopicToTermAssessment'
                                               arg_list='dataset_id={{topic.dataset_id}}, topic_model_id={{ topic.topic_model_id }}, topic_id={{ topic.id }}, term_id={{ topic_term.term_id }}'
-                                              score=0>
-                                            <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+                                              score={{ topic_to_term_scores[topic_term.term_id] }}>
+                                            {% if topic_to_term_scores[topic_term.term_id] == 0 %}
+                                                <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
+                                            {% endif %}
+                                            {% if topic_to_term_scores[topic_term.term_id] == 1 %}
+                                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                            {% endif %}
+                                            {% if topic_to_term_scores[topic_term.term_id] == -1 %}
+                                                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                                            {% endif %}
                                           </button>
                                         </td>
                                         <td align="center" width="20%">{{ topic_term.prob_wt | round(3) }}</td>
@@ -92,8 +108,16 @@
                                           <button type="submit" type="button" class="btn btn-default btn-xs btn-assess"
                                               class_name='TopicToTermAssessment'
                                               arg_list='dataset_id={{topic.dataset_id}}, topic_model_id={{ topic.topic_model_id }}, topic_id={{ topic.id }}, term_id={{ topic_term.term_id }}'
-                                              score=0>
-                                            <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+                                              score={{ topic_to_term_scores[topic_term.term_id] }}>
+                                            {% if topic_to_term_scores[topic_term.term_id] == 0 %}
+                                                <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
+                                            {% endif %}
+                                            {% if topic_to_term_scores[topic_term.term_id] == 1 %}
+                                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                            {% endif %}
+                                            {% if topic_to_term_scores[topic_term.term_id] == -1 %}
+                                                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                                            {% endif %}
                                           </button>
                                         <td width="20%" align="center">{{ topic_term.prob_tw | round(3) }}</td>
                                         <td width="60%" align="center">
@@ -135,7 +159,7 @@
                                               class_name='TopicToDocumentAssessment'
                                               arg_list='dataset_id={{topic.dataset_id}}, topic_model_id={{ topic.topic_model_id }}, topic_id={{ topic.id }}, term_id={{ document_topic.document_id }}'
                                               score=0>
-                                            <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+                                            <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
                                           </button>
                                         <td width="20%" align="center">{{ document_topic.prob_dt | round(3) }}</td>
                                         <td width="60%" align="center">
@@ -170,7 +194,7 @@
                                               class_name='TopicToDocumentAssessment'
                                               arg_list='dataset_id={{topic.dataset_id}}, topic_model_id={{ topic.topic_model_id }}, topic_id={{ topic.id }}, term_id={{ document_topic.document_id }}'
                                               score=0>
-                                            <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+                                            <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
                                           </button>
                                         </td>
                                         <td width="20%" align="center">{{ document_topic.prob_td | round(3) }}</td>
@@ -212,7 +236,7 @@
                                           class_name='TopicToTopicAssessment'
                                           arg_list='dataset_id={{topic.dataset_id}}, topic_model_id={{ topic.topic_model_id }}, topic_l_id={{ topic.id }}, topic_r_id={{topic_similarity.topic_r_id}}'
                                           score=0>
-                                        <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+                                        <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
                                       </button>
                                     </td>
                                     <td width="10%" align="center">{{ topic_similarity.similarity | round(3) }}</td>
