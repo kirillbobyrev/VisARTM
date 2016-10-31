@@ -2,10 +2,13 @@ TODO list
 =========
 
 * Write about everything (Wiki?)
+* Document data format.
+* Make interface for easy conversion from BigARTM model to VisARTM data format.
+* Make it easy to add modalities. Time modality is very important.
 
 ---
 
-# OLD STUFF
+## OLD STUFF
 
 * Missing visualisation pieces:
   * document view
