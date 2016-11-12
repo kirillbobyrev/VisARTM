@@ -5,6 +5,7 @@ TODO list
 * Document data format.
 * Make interface for easy conversion from BigARTM model to VisARTM data format.
 * Make it easy to add modalities. Time modality is very important.
+* Document assessment dumps.
 
 ---
 
