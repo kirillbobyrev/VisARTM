@@ -17,8 +17,8 @@ recent `flask` and `flask_sqlalchemy`.
 
 ## Data format in VisARTM
 
-All files VisARTM requires should be provided in `.csv` format. Here are
-descriptions for all of them:
+All files required by VisARTM should be provided in `.csv` format. See columns
+and sample values for each input file below.
 
 ### Files related to dataset
 
@@ -27,30 +27,35 @@ descriptions for all of them:
 id|abstract|content
 ---|---|---
 0|document-0|abstact-0|document-0-content
+1|document-1|abstact-1|<h1>Header</h1>document-1-content
 
 #### term.csv
 
 id|text
 ---|---
-0|text-0
+0|milk
+1|Python
 
 #### document_similarity.csv
 
 document_l_id|document_r_id|similarity
 ---|---|---
-0|0|0.5
+0|1|0.5
+0|2|0.2
 
 #### term_similarity.csv
 
 term_l_id|term_r_id|similarity
 ---|---|---
-0|0|0.5
+0|1|0.5
+0|2|0.6
 
 #### document_term.csv
 
 document_id|term_id|count
 ---|---|---
 0|0|100
+0|1|0
 
 ### Files related to topic model
 
@@ -59,24 +64,28 @@ document_id|term_id|count
 id|title|probability|is_background
 ---|---|---|---
 0|Topic 0|0.95|1
+1|Topic 1|0.2|0
 
 #### topic_similarity.csv
 
 topic_l_id|topic_r_id|similarity
 ---|---|---
-0|0|0.22
+0|1|0.22
+0|2|0.6
 
 #### document_topic.csv
 
 document_id|topic_id|prob_dt|prob_td
 ---|---|---|---
 0|0|0.22|0.6
+0|1|0.61|0.3
 
 #### topic_term.csv
 
 topic_id|term_id|prob_wt|prob_tw
 ---|---|---|---
 0|0|0.22|0.6
+0|1|0.4|0.2
 
 ## Loading data into VisARTM
 
