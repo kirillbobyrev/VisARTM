@@ -41,7 +41,7 @@ def browse_topics(dataset_id, topic_model_id):
            '/topic/<int:topic_id>')
 def topic(dataset_id, topic_model_id, topic_id):
     topic = Topic.query.get((dataset_id, topic_model_id, topic_id))
- 
+
     topic_score = 0
     for topic_assessment in topic.topic_assessment:
         topic_score = topic_assessment.score
